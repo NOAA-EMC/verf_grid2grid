@@ -1,0 +1,24 @@
+#!/bin/ksh 
+#
+#BSUB -J jverf_grid2grid_smoke_00
+#BSUB -oo /ptmpp2/Binbin.Zhou/g2g/RFC2/com/verf/dev/vsdb/grid2grid/verf_grid2grid_smoke_00.%J
+#BSUB -eo /ptmpp2/Binbin.Zhou/g2g/RFC2/com/verf/dev/vsdb/grid2grid/verf_grid2grid_smoke_00.%J
+#BSUB -n 1
+#BSUB -q "transfer"
+#BSUB -W 01:45
+#BSUB -R "span[ptile=1]" -R "rusage[mem=1000]"  -R "affinity[core]"
+#BSUB -cwd /u/Binbin.Zhou/work/grid2grid/verf_g2g.v3.0.11/ecf
+#BSUB -P VERF-T2O
+
+export MP_SHARED_MEMORY=yes
+export MEMORY_AFFINITY=MCM
+
+set -x
+export envir=dev
+export RUN_ENVIR=dev
+export cyc=00
+export job=verf_grid2grid_smoke_00
+
+export model_ver=v3.0.11
+. /u/Binbin.Zhou/work/grid2grid/verf_g2g.${model_ver}/jobs/JVERF_GRID2GRID_SMOKE
+

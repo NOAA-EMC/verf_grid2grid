@@ -1,0 +1,154 @@
+#!/bin/sh
+#######################################################
+# This job processes the GRID2GRID cloud verification
+#######################################################
+set -ax
+#export cyc=12
+#export envir=prod
+export RUN_ENVIR=${RUN_ENVIR:-prod}
+#export RUN_ENVIR=${RUN_ENVIR:-dev}
+
+###############################
+# Specify RUN name
+###############################
+export NET=verf
+export RUN=dust
+
+###############################################################
+# This block can be modified for different Production test
+# environment. This is used for operational testings
+###############################################################
+if [ "$RUN_ENVIR" = prod -a $envir != prod ]; then
+  if [ $envir != "prod" ] ; then
+    export SENDDBN=${SENDDBN:-NO}
+    export jlogfile=${jlogfile:-/com/logs/${envir}/jlogfile}
+    export DBNROOT=/nwprod/spa_util/fakedbn
+    export DBNLOG=${DBNLOG:-YES}
+    export DATA_IN=${DATA_IN:-/tmpnwprd2}
+    export COMSREF=${COMSREF:-/com2/sref/$envir/sref}
+  fi
+fi
+
+verf_g2g_ver=${verf_g2g_ver:-v3.0.12}
+
+#####################################################################################
+# This block is for Developer's test run:
+# Run config file to get input parameters
+# This config file should define the following variables
+# DATA_IN: Location of working directory, default to /tmpnwprd
+# SENDECF: If the job is to be running using ecflow, default to YES
+# SENDDBN: Set to NO for developers, default to YES
+# COM_IN:  Directory for input files, default to /com/$NET/${envir}
+# COM_OUT: Directory for output file, default to /com/$NET/${envir}
+# gespath: Directory for the guess or restart files, default to /nwges/${envir}
+#####################################################################################
+if [ "$RUN_ENVIR" != prod ]    ### For Developers
+then
+  . /u/$LOGNAME/work/grid2grid/verf_g2g.${verf_g2g_ver}/parm/verf_g2g_prod_config
+#   . /meso/save/Perry.Shafran/g2g/nwprod/parm/verf_g2g_config
+fi
+
+#######################################################
+set -xa
+
+# ###################################
+# SET SHELL PROCESSING VARIABLES
+# ###################################
+export PS4='$SECONDS + ' 
+date
+
+###########################################################
+# obtain unique process id (pid) and make temp directories
+###########################################################
+export pid=$$
+export DATA_IN=${DATA_IN:-/tmpnwprd1}
+export DATA=$DATA_IN/verf_g2g_dust_${cyc}_${envir}
+
+rm -rf $DATA
+mkdir -p $DATA
+cd $DATA 
+####################################
+# File To Log Msgs
+####################################
+export jlogfile=${jlogfile:-/com/logs/jlogfiles/jlogfile.$$}
+
+####################################
+# Determine Job Output Name on System
+####################################
+export outid="LL$job"
+export jobid="${outid}.o${pid}"
+export pgmout="OUTPUT.${pid}"
+
+export cycle=t${cyc}z 
+
+##################################################
+# SAVEGES  - Copy Files From TMPDIR to $GESdir
+# SENDECF  - Flag Events on ecflow
+# SENDCOM  - Copy Files From TMPDIR to $COMOUT
+# SENDDBN  - Issue DBNet Client Calls
+##################################################
+export SENDCOM=${SENDCOM:-YES}
+export SENDDBN=${SENDDBN:-YES}
+export SENDECF=${SENDECF:-YES}
+
+####################################
+# Specify codes and scripts locaton
+####################################
+export HOMEverf_g2g=${HOMEverf_g2g:-/nw${envir}/verf_g2g.${verf_g2g_ver}}
+export EXECverf_g2g=${EXECverf_g2g:-$HOMEverf_g2g/exec}
+export FIXverf_g2g=${FIXverf_g2g:-$HOMEverf_g2g/fix}
+export PARMverf_g2g=${PARMverf_g2g:-$HOMEverf_g2g/parm}
+export USHverf_g2g=${USHverf_g2g:-$HOMEverf_g2g/ush}
+
+###################################
+# Set up the UTILITIES
+###################################
+export utilscript=/nwprod/util/ush
+export utilexec=/nwprod/util/exec
+export EXECutil=/nwprod/util/exec
+
+# Run setup to initialize working directory and utility scripts
+ sh $utilscript/setup.sh
+# . $DATA/PDY
+# export PDY=$1
+#export PDY=`date +%Y%m%d%H | cut -c1-8`
+# export PDY=20130412
+# PDYm2=`/nwprod/util/exec/ndate -48 ${PDY}12`
+
+# Run setpdy and initialize PDY variables
+  sh $utilscript/setpdy.sh
+ . $DATA/PDY
+
+export vday=$PDYm2
+
+##vday=`echo $PDYm2 | cut -c1-8`
+##vday=20130503
+
+##################################
+# Define COMIN/COMOUT variables
+##################################
+export COM_IN=${COM_IN:-/com/verf/${envir}}
+export COM_OUT=${COM_OUT:-/com/verf/${envir}}
+
+export COMIN=$COM_IN/dust.$vday
+export COMOUT=$COM_OUT/dust.$vday
+export COMVSDB=${COMVSDB:-/com/verf/${envir}/vsdb/grid2grid}
+
+mkdir -p -m 775 $COMOUT $COMVSDB/${RUN}
+
+env
+
+#######################################################################
+# Execute the script.
+sh $HOMEverf_g2g/scripts/exverf_g2g_dust.sh.ecf $vday
+
+msg="JOB $job HAS COMPLETED NORMALLY."
+postmsg "$jlogfile" "$msg"
+
+cd $DATA_IN
+if [ ${RM_TMPDIR:-NO} = YES ]; then
+  rm -rf $DATA
+fi
+
+date
+

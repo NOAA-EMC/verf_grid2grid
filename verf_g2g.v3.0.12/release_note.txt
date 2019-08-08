@@ -1,0 +1,43 @@
+This package is update version:
+What are new:
+(1) Add HREF-mean, GLMP, HRRR to visibility verification
+(2) Add HREF(v2) ensemble verification for ref, etop, vis, T-2m, dew-point-2m and total cloud
+
+1) Implementatioon instruction:
+
+ Run compilation script compile_verf_g2g_sorc.sh in /sorc
+  After the compilation, all Fortran executables will be copied into /exec directory
+
+2) Job dependencies 
+ Downstream dependencies: 
+   None
+
+ Upstream depemdencies:
+  GFS, NAM, RAP, HRRR, Hiresw-ARW and Hiresw-NMMB, CMAQ, HISPLT, GEFS, SREF, adn HREF
+  AFWA and CLAVR cloud data in /dcom
+  NDAS, GDAS, RTMA/URMA, MOSAIC, NESDIS/Smoke/Dust
+
+  All upstream files are grib2 format files
+
+3) Flow chart
+  - Access one-day-older (previous day before today)  upstream models and anaylysis data files as listed above 
+      located in either /com2 or /dcom directories 
+  - Execute  the scripts and Fortran 
+  - Output vsdb files and store them in /com/verf/prod/vsdb/grid2grid
+
+4) Test plan
+  There is a testing script "test_aal.sh" in /ecf directory. Run it will trigger all jobs running
+  on personal account and output vsdb files into ptmp directory 
+
+5) Technical details
+  The grid2grid verification is a part of VERF, which conducts validation of model grids against analysis grid
+in either backward mode (all forecasts except for firewx) and forward mode (firewx). The is a unifed verification
+system using same Fortran code (grib2 version) for all model forecasts AND ensemble forecasts. 
+  There are several jobs in this grid2grid verification. The single model verification focuses on cloud, reflectivity,
+echo-top, visibility, smoke, and dust, while ensemble verification on regular fields like temperature, wind and heights,
+etc. In single model verification, each variable has one job card for all models, while ensemble forecast has one job
+card for all variables and all ensembels. 
+  The output ASCII files are VSDB partial sum recodes. One day one model has one vsdb files. In other word, one vsdb file
+has multiple cycles and forecast times VSDB records. If want to see score, some other tools, like METViewer, should
+be used to see scores plots.
+  

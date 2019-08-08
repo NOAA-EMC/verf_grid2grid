@@ -1,0 +1,33 @@
+##################################################################
+# This parameter file set up the environment variables used in
+# the J-Job scripts to run the grid2grid verifications
+##################################################################
+if [ $RUN_ENVIR = dev ]
+then
+  export HOMEverf_g2g=/meso/save/$LOGNAME/g2g/nwprod 
+  export EXECverf_g2g=$HOMEverf_g2g/exec
+  export PARMverf_g2g=$HOMEverf_g2g/parm
+  export USHverf_g2g=$HOMEverf_g2g/ush
+  export FIXverf_g2g=$HOMEverf_g2g/fix
+
+#  export INDIR=${INDIR:-/com/${NET}/prod/${RUN}}
+  export COM_IN=${COM_IN:-/meso/noscrub/$LOGNAME/com/verf/dev}
+  export COM_OUT=${COM_OUT:-/meso/noscrub/$LOGNAME/com/verf/dev}
+  export COMVSDB=${COMVSDB:-/meso/noscrub/$LOGNAME/com/verf/dev/vsdb/grid2grid}
+  export COMBUFR=${COMBUFR:-/com/hourly/prod}
+  export RECOVERY=${RECOVERY:-/meso/noscrub/$LOGNAME/com/verf/dev/recovery}
+
+  export DATA_IN=/ptmp/$LOGNAME/tmpnwprd
+  export jlogfile=$DATA_IN/jlogfile
+
+  export SENDCOM=${SENDCOM:-YES}
+
+  if [ $LOGNAME = "wx22yz" ]
+  then
+    export SENDSMS=${SENDSMS:-YES}
+  else
+    export SENDSMS=${SENDSMS:-NO}
+  fi
+  export SENDDBN=${SENDDBN:-NO}
+
+fi

@@ -1,0 +1,365 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd
+END
+naefs.f
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/naefs.f
+END
+sl1l2.f
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/sl1l2.f
+END
+sal1l2.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/sal1l2.f
+END
+sl1l2_S1.f
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/sl1l2_S1.f
+END
+vl1l2.f
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/vl1l2.f
+END
+esl1l2.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/esl1l2.f
+END
+DIST_special.f
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/DIST_special.f
+END
+read_area.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/read_area.f
+END
+strmbl.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/strmbl.f
+END
+evl1l2.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/evl1l2.f
+END
+setobtyp.f
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/setobtyp.f
+END
+FILTER_SC.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/FILTER_SC.f
+END
+read.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/read.f
+END
+rhnt.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/rhnt.f
+END
+setfcst.f
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/setfcst.f
+END
+fho.f
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/fho.f
+END
+setmodel.f
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/setmodel.f
+END
+stclst.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/stclst.f
+END
+grid2grid.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/grid2grid.f
+END
+afho.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/afho.f
+END
+getHGTsfc.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getHGTsfc.f
+END
+strxbl.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/strxbl.f
+END
+efho.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/efho.f
+END
+stread.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/stread.f
+END
+getTndGRIBdata.f
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getTndGRIBdata.f
+END
+parm.inc
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/parm.inc
+END
+setlevel.f
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/setlevel.f
+END
+status.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/status.f
+END
+FITWAV_1D.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/FITWAV_1D.f
+END
+setarea.f
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/setarea.f
+END
+FSS.f
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/FSS.f
+END
+stlstr.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/stlstr.f
+END
+fhop.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/fhop.f
+END
+readcntl.f
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/readcntl.f
+END
+getGRIB2data.f
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getGRIB2data.f
+END
+FILTER_UV.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/FILTER_UV.f
+END
+gtgdef.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/gtgdef.f
+END
+getNAEFSanalysis.f
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getNAEFSanalysis.f
+END
+readGRIB2.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/readGRIB2.f
+END
+val1l2.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/val1l2.f
+END
+PROB.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/PROB.f
+END
+rhet.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/rhet.f
+END
+DIST.f
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/DIST.f
+END
+get_hasdata.f
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/get_hasdata.f
+END
+stnumb.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/stnumb.f
+END
+getHiresClimData.f
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getHiresClimData.f
+END
+stldsp.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/stldsp.f
+END
+getfho.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getfho.f
+END
+EFS.f
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/EFS.f
+END
+getClimData.f
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getClimData.f
+END
+getMeanClimData.f
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getMeanClimData.f
+END
+getAnomlyLevMrk.f
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getAnomlyLevMrk.f
+END
+w3fi71.f
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/w3fi71.f
+END
+getClimData_2.5deg.f
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getClimData_2.5deg.f
+END
+getregion.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getregion.f
+END
+readProbGRIB2.f
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/readProbGRIB2.f
+END
+FITWAV_2D.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/FITWAV_2D.f
+END
+fho_fss.f
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/fho_fss.f
+END
+getnumber.f
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/getnumber.f
+END
+makefile
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/verf_g2g/!svn/ver/27/tags/IT-verf_g2g.v3.0.12/sorc/verf_g2g_grid2grid_grib2.fd/makefile
+END
