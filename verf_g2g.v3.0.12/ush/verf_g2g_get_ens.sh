@@ -29,12 +29,8 @@ if [ $modnam = gfsanl ]; then
 
   for cyc in 00 06 12 18 ; do
 
-    gfsanl=$COMGFSANL.$vday/gfs.t${cyc}z.pgrbf00.grib2
-    if [ -s $gfsanl ] ; then 
-      cp $gfsanl $COMOUT/gfs.t${cyc}z.pgrbf00.grib2
-    else 
-      $cnvgrib -g12 $COMGFSANL.$vday/gfs.t${cyc}z.pgrbf00 $COMOUT/gfsanl.t${cyc}z.grd3.f00.grib2
-    fi
+    gfsanl=$COMGFSANL.$vday/$cyc/gfs.t${cyc}z.pgrb2.1p00.f000
+    cp $gfsanl $COMOUT/gfsanl.t${cyc}z.grd3.f00.grib2
 
   done
 fi

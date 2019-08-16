@@ -45,7 +45,7 @@ if [ $domain = 'CONUS' ] ; then
     while [ $fhr -le 84 ]
     do
        fh=$fhr
-       file1=$COMGFS.$vday/gfs.t${HH}z.pgrb2.0p50.f${fh}
+       file1=$COMGFS.$vday/$HH/gfs.t${HH}z.pgrb2.0p50.f${fh}
        $wgrib2 -match ":TCDC:entire atmosphere" $file1|$wgrib2 -i $file1 -grib retrieved1
        #convert to 212 grid
        $copygb2 -g"30 6 0 0 0 0 0 0 185 129 12190000 226541000 8 25000000 265000000 40635000 40635000 0 64 25000000 25000000 0 0" -i3 -x  retrieved1 $COMOUT/gfs.t${HH}z.grd212.f${fhr}.grib2 

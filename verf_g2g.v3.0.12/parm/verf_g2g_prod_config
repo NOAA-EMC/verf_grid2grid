@@ -4,13 +4,14 @@
 ##################################################################
 #export COMRAP=/com2/rap/prod/rap
 
-mch=`cat /etc/dev`
-if [ $mch = venus ] ; then
- dir=g   
-else      
- dir=t   
-fi      
-
+host=`hostname`
+if [ "${host:0:1}" = m ] ; then
+ dir=t 
+elif [  "${host:0:1}" = v ] ; then
+ dir=g
+else
+ exit  
+fi
 
 export naefs_ver=${naefs_ver:-v6.0.6}
 export COMRAP=${COMRAP:-/gpfs/hps/nco/ops/com/rap/prod/rap}
@@ -21,9 +22,10 @@ export COMNAMNEST=$COMNAM
 export COMNAMFIREWX=$COMNAM
 export COMMOSAIC=${COMMOSAIC:-/gpfs/${dir}p1/nco/ops/com/hourly/prod/radar}
 export COMURMA=${COMURMA:-/gpfs/${dir}p2/nco/ops/com/urma/prod/urma2p5}
-export COMGFS=${COMGFS:-/gpfs/hps/nco/ops/com/gfs/prod/gfs}
+#export COMGFS=${COMGFS:-/gpfs/hps/nco/ops/com/gfs/prod/gfs}
+export COMGFS=${COMGFS:-/gpfs/dell1/nco/ops/com/gfs/prod/gfs}
 export COMHRRR=${COMHRRR:-/gpfs/hps/nco/ops/com/hrrr/prod/hrrr}
-export COMGFSANL=${COMGFSANL:-/gpfs/hps/nco/ops/com/gfs/prod/gfs}
+export COMGFSANL=$COMGFS
 export COMGEFS=${COMGEFS:-/gpfs/${dir}p2/nco/ops/com/gens/prod/gefs}
 export COMNDAS=$COMNAM
 export COMNAEFS=${COMNAEFS:-/gpfs/hps/nco/ops/com/naefs/prod/cmce}
