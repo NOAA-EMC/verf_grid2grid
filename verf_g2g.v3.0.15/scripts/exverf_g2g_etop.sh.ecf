@@ -1,0 +1,52 @@
+#!/bin/ksh
+#################################################################
+# Script Name: verf_g2g_etop.sh.sms 
+# Purpose:   To run grid-to-grid verification on Echo Top against 
+#            the Radar data
+#
+# Log History:  Julia Zhu -- 2011.11.09 
+################################################################
+set -x
+
+cd $DATA
+
+echo "$0 STRDATE "`date`
+
+msg="$job HAS BEGUN"
+postmsg "$jlogfile" "$msg"
+
+vday=$1
+
+# Copy the model info file which contains what model data are to be verified
+cp $PARMverf_g2g/verf_g2g_etop.modelinfo modelinfo
+
+
+   #############################################################
+   # Step I: Run get_radar.sh to obtain the observation data 
+   #############################################################
+   $USHverf_g2g/verf_g2g_etop_get_radar.sh  mosaic $vday
+
+
+cat modelinfo |while read line
+do
+   model=`echo $line |awk -F"|" '{print $1}'`
+   nests=`echo $line |awk -F"|" '{print $2}'`
+
+   #############################################################
+   # Step I: Run get_radar.sh to obtain the observation data 
+   #############################################################
+   $USHverf_g2g/verf_g2g_etop_get_radar.sh $model $vday
+
+   ####################################################
+   # Step II: Run etop_radar.sh to generate VSDB
+   ####################################################
+   for nest in $nests ; do
+     $USHverf_g2g/verf_g2g_etop_radar.sh $model $nest $vday
+   done
+done
+
+msg="JOB $job HAS COMPLETED NORMALLY"
+postmsg "$jlogfile" "$msg"
+
+exit 0
+
