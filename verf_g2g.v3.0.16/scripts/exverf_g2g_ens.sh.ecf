@@ -1,0 +1,50 @@
+#!/bin/ksh
+#################################################################
+# Script Name: verf_g2g_reflt.sh.sms $vday $vcyc
+# Purpose:   To run grid-to-grid verification on reflectivity
+#
+# Log History:  Julia Zhu -- 2010.04.28 
+################################################################
+set -x
+
+cd $DATA
+
+echo "$0 STRDATE "`date`
+
+msg="$job HAS BEGUN"
+postmsg "$jlogfile" "$msg"
+
+export vday=$1
+  
+   cp $PARMverf_g2g/verf_g2g_ens.modelinfo modelinfo
+
+#############################################################
+# Step 0: Get observation/analysis data  and clim data
+#############################################################
+  $USHverf_g2g/verf_g2g_get_ens.sh gfsanl
+  $USHverf_g2g/verf_g2g_get_ens.sh gfsclim
+  $USHverf_g2g/verf_g2g_get_ens.sh ndas
+  $USHverf_g2g/verf_g2g_get_ens.sh srefclim
+
+  cat modelinfo |while read line
+  do
+     model=`echo $line |awk -F"|" '{print $1}'`
+
+     #############################################################
+     # Step I: Run copygb to convert model data to grid#184
+     #############################################################
+     $USHverf_g2g/verf_g2g_get_ens.sh $model 
+
+     ##################################################################
+     # Step II: Run the g2g to generate vsdb files for each model
+     ##################################################################
+     $USHverf_g2g/verf_g2g_run_ens.sh $model 
+  done
+
+
+msg="JOB $job HAS COMPLETED NORMALLY"
+postmsg "$jlogfile" "$msg"
+
+
+
+exit 0
