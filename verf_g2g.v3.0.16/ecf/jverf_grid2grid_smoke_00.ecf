@@ -10,6 +10,9 @@
 #BSUB -cwd /u/Binbin.Zhou/work/grid2grid/verf_g2g.v3.0.11/ecf
 #BSUB -P VERF-T2O
 
+env
+. /u/Binbin.Zhou/.kshrc
+
 export MP_SHARED_MEMORY=yes
 export MEMORY_AFFINITY=MCM
 

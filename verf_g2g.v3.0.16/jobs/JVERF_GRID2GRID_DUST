@@ -106,7 +106,7 @@ export USHverf_g2g=${USHverf_g2g:-$HOMEverf_g2g/ush}
 export utilscript=/gpfs/dell1/nco/ops/nwprod/prod_util.v1.1.0/ush
 
 # Run setup to initialize working directory and utility scripts
- sh $utilscript/setup.sh
+# sh $utilscript/setup.sh
 # . $DATA/PDY
 # export PDY=$1
 #export PDY=`date +%Y%m%d%H | cut -c1-8`

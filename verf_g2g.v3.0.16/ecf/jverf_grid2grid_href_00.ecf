@@ -12,6 +12,7 @@
 
 ### Note: For HRRR original mem=500 is not enough for HRRR's run cnvgrib -g21
 
+env
 . /u/Binbin.Zhou/.kshrc
 
 export MP_TASK_AFFINITY=cpu

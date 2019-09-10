@@ -52,6 +52,8 @@ export COM_OUT=${COM_OUT:-/gpfs/dell1/ptmp/$LOGNAME/g2g/RFC2/com/verf/dev}
 export COMVSDB=${COMVSDB:-/gpfs/dell1/ptmp/$LOGNAME/g2g/RFC2/com/verf/dev/vsdb/grid2grid}
 export DATA_IN=${DATA_IN:-/gpfs/dell1/ptmp/$LOGNAME/g2g/RFC2/tmpnwprd}
 
+export COMROOT=/gpfs/dell1/nco/ops/com
+
 export jlogfile=$DATA_IN/jlogfile
 
 export SENDCOM=${SENDCOM:-YES}
