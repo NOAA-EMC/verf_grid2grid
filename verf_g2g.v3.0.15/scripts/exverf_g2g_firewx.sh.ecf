@@ -1,0 +1,52 @@
+#!/bin/ksh
+#################################################################
+# Script Name: verf_g2g_reflt.sh.sms $vday $vcyc
+# Purpose:   To run grid-to-grid verification on reflectivity
+#
+# Log History:  Julia Zhu -- 2010.04.28 
+################################################################
+set -x
+
+cd $DATA
+
+echo "$0 STRDATE "`date`
+
+msg="$job HAS BEGUN"
+postmsg "$jlogfile" "$msg"
+
+export PAST2=$1 #2 days ago (as RUNN_DAY)
+export PAST1=$2 #yesterday
+export vday=$3  #today PDY
+
+echo "In exverf_g2g_firewx.sh.ecf PAST2 PAST1 vday="  $PAST2 $PAST1 $vday
+
+# Copy the model info file which contains what model data are to be verified
+cp $PARMverf_g2g/verf_g2g_firewx.modelinfo modelinfo
+
+#############################################################
+# Step 0: Run copygb to convert MOSAIC data to 4km WRF grid
+#############################################################
+for cyc in 00 06 12 18 ; do
+  $USHverf_g2g/verf_g2g_get_all_on_firewx.sh mosaic $PAST2 $PAST1 $vday $cyc
+done 
+
+cat modelinfo |while read line
+do
+   model=`echo $line |awk -F"|" '{print $1}'`
+
+   #############################################################
+   # Step I: Run copygb to convert model data to 4km WRF grid
+   #############################################################
+   for cyc in 00 06 12 18 ; do
+    $USHverf_g2g/verf_g2g_get_all_on_firewx.sh $model $PAST2 $PAST1 $vday $cyc 
+   done
+   ##################################################################
+   # Step II: Run the g2g to generate vsdb files for each model
+   ##################################################################
+   $USHverf_g2g/verf_g2g_run_firewx.sh $model $PAST2
+done
+
+msg="JOB $job HAS COMPLETED NORMALLY"
+postmsg "$jlogfile" "$msg"
+
+exit 0

@@ -1,0 +1,50 @@
+##################################################################
+# This parameter file set up the environment variables used in
+# the J-Job scripts to run the grid2grid verifications
+##################################################################
+export COMRAP=/com2/rap/prod/rap
+export COMSREF=/com2/sref/prod/sref
+export COMHIRESW=/gpfs/hps/nco/ops/com/hiresw/prod/hiresw
+export COMNAM=/com2/nam/prod/nam
+export COMNAMNEST=/com2/nam/prod/nam
+export COMNAMFIREWX=/com2/nam/prod/nam
+export COMMOSAIC=/com/hourly/prod/radar
+export COMURMA=/gpfs/dell2/nco/ops/com/urma/prod/urma2p5
+export COMBUFR=/com/hourly/prod
+#export COMGFS=/com2/gfs/prod/gfs
+#export COMGFS=/gpfs/hps/nco/ops/com/gfs/para/gfs
+export COMGFS=/gpfs/hps/nco/ops/com/gfs/prod/gfs
+export COMHRRR=/com2/hrrr/prod/hrrr
+#export COMGFSANL=/com2/gfs/prod/gfs
+export COMGFSANL=/gpfs/hps/nco/ops/com/gfs/prod/gfs
+#export COMGFSANL=/gpfs/hps/nco/ops/com/gfs/para/gfs
+export COMGEFS=/com2/gens/prod/gefs
+export COMNDAS=/com2/nam/prod/nam
+export COMNAEFS=/com2/gens/prod/cmce
+export COMGLMP=/com2/glmp/prod/glmp
+#export COMHREF=/com2/hiresw/prod/href     #HREFv1
+#export COMHREF=${COMHREF:-/gpfs/hps/nco/ops/com/hiresw/prod/href} #HREFv2
+export COMHREF=${COMHREF:-/gpfs/hps2/ptmp/Matthew.Pyle/com/hiresw/test/href} 
+export DCOMAFWA=/dcom/us007003
+export COMFNMOC=/dcom/us007003
+export COMCCPA=/com2/ccpa/prod/ccpa
+
+export HOMEverf_g2g=/u/Binbin.Zhou/work/grid2grid/verf_g2g.v3.0.11
+export EXECverf_g2g=$HOMEverf_g2g/exec
+export PARMverf_g2g=$HOMEverf_g2g/parm
+export USHverf_g2g=$HOMEverf_g2g/ush
+export FIXverf_g2g=$HOMEverf_g2g/fix
+export SCRIPTerf_g2g=$HOMEverf_g2g/scripts
+export tmpnwprd=/gpfs/hps/ptmp/Matthew.Pyle/tmpnwprd
+
+
+export COM_IN=${COM_IN:-/ptmpp2/$LOGNAME/g2g/RFC2/com/verf/dev}
+export COM_OUT=${COM_OUT:-/ptmpp2/$LOGNAME/g2g/RFC2/com/verf/dev}
+export COMVSDB=${COMVSDB:-/ptmpp2/$LOGNAME/g2g/RFC2/com/verf/dev/vsdb/grid2grid}
+export DATA_IN=${DATA_IN:-/ptmpp2/$LOGNAME/g2g/RFC2/tmpnwprd}
+export jlogfile=$DATA_IN/jlogfile
+
+export SENDCOM=${SENDCOM:-YES}
+export SENDECF=${SENDECF:-NO}
+export SENDDBN=${SENDDBN:-NO}
+
