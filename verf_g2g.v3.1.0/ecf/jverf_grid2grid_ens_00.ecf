@@ -1,0 +1,25 @@
+#!/bin/ksh
+#BSUB -J jverf_grid2grid_ens_00
+#BSUB -oo /ptmpp2/Binbin.Zhou/g2g/RFC2/com/verf/dev/vsdb/grid2grid/verf_grid2grid_ens_00.%J
+#BSUB -eo /ptmpp2/Binbin.Zhou/g2g/RFC2/com/verf/dev/vsdb/grid2grid/verf_grid2grid_ens_00.%J
+#BSUB -n 1
+#BSUB -q "transfer"
+#BSUB -W 02:45
+#BSUB -R "span[ptile=1]" -R "rusage[mem=8000]"  -R "affinity[core]"
+#BSUB -cwd /u/Binbin.Zhou/work/grid2grid/verf_g2g.v3.0.11/ecf
+#BSUB -P VERF-T2O
+
+env
+. /u/Binbin.Zhou/.kshrc
+
+export MP_TASK_AFFINITY=cpu
+export envir=dev
+export RUN_ENVIR=dev
+export cyc=00
+export job=jverf_grid2grid_ens_00
+
+# CALL executable job script here
+export vday=$1 
+export verf_g2g_ver=v3.1.0
+/gpfs/dell2/emc/verification/noscrub/Binbin.Zhou/grid2grid/verf_g2g.${verf_g2g_ver}/jobs/JVERF_GRID2GRID_ENS
+
