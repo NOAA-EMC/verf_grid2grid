@@ -23,10 +23,10 @@ export RUN=urma
 if [ "$RUN_ENVIR" = prod -o "$RUN_ENVIR" = para ]; then
   if [ $envir != "prod" ] ; then
     export SENDDBN=${SENDDBN:-NO}
-    export jlogfile=${jlogfile:-/com/logs/${envir}/jlogfile}
-    export DBNROOT=/nwprod/spa_util/fakedbn
+    export jlogfile=${jlogfile:-/gpfs/dell1/nco/ops/com/logs/${envir}/jlogfile}
+    export DBNROOT=/gpfs/dell1/nco/ops/nwprod/spa_util/fakedbn
     export DBNLOG=${DBNLOG:-YES}
-    export DATA_IN=${DATA_IN:-/tmpnwprd2}
+    export DATA_IN=${DATA_IN:-/gpfs/dell1/nco/ops/tmpnwprd2}
   fi
 fi
 
@@ -62,7 +62,7 @@ date
 # obtain unique process id (pid) and make temp directories
 ###########################################################
 export pid=$$
-export DATA_IN=${DATA_IN:-/tmpnwprd1}
+export DATA_IN=${DATA_IN:-/gpfs/dell1/nco/ops/tmpnwprd1}
 export DATA=$DATA_IN/verf_g2g_urma_${cyc}_${envir}.$$
 
 rm -rf $DATA
@@ -72,7 +72,7 @@ cd $DATA
 ####################################
 # File To Log Msgs
 ####################################
-export jlogfile=${jlogfile:-/com/logs/jlogfiles/jlogfile.$$}
+export jlogfile=${jlogfile:-/gpfs/dell1/nco/ops/com/logs/jlogfiles/jlogfile.$$}
 
 ####################################
 # Determine Job Output Name on System
@@ -133,12 +133,12 @@ fi
   export COMHIRESW=${COMHIRESW:-/gpfs/hps/nco/ops/com/hiresw/prod/hiresw}
   export COMNAMFIREWX=${COMNAMFIREWX:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
   export COMNAM=${COMNAM:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
-  export COMMOSAIC=${COMMOSAIC:-/com/hourly/prod/radar}
+  export COMMOSAIC=${COMMOSAIC:-/gpfs/${dir}p1/nco/ops/com/hourly/prod/radar}
   export COMURMA=${COMURMA:-/gpfs/dell2/nco/ops/com/urma/prod/urma2p5}
   export COMBUFR=${COMBUFR:-/com/hourly/prod}
   export COMHRRR=${COMHRRR:-/gpfs/hps/nco/ops/com/hrrr/prod/hrrr}
   export COMGEFS=${COMGEFS:-/gpfs/dell2/nco/ops/com/gens/prod/gefs}
-  export COMNDAS=${COMNDAS:-/com2/nam/prod/ndas}
+  export COMNDAS=${COMNDAS:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
   export COMSREF=${COMSREF:-/gpfs/dell2/nco/ops/com/sref/prod/sref}
   export COMNAEFS=${COMNAEFS:-/gpfs/hps/nco/ops/com/naefs/prod/cmce}
   export AFWADIR=${AFWADIR:-/dcom/us007003}
@@ -150,15 +150,15 @@ fi
 ##################################
 # Define COMIN/COMOUT variables
 ##################################
-export COM_IN=${COM_IN:-/com/verf/${envir}}
-export COM_OUT=${COM_OUT:-/com/verf/${envir}}
+export COM_IN=${COM_IN:-/gpfs/dell1/nco/ops/com/verf/${envir}}
+export COM_OUT=${COM_OUT:-/gpfs/dell1/nco/ops/com/verf/${envir}}
 
 export FCSTDIR=${FCSTDIR:-$COM_OUT/${RUN}}
 export OBSVDIR=${OBSVDIR:-$COM_OUT/${RUN}}
 
 export COMIN=$COM_IN/${RUN}.$vday
 export COMOUT=$COM_OUT/${RUN}.$vday
-export COMVSDB=${COMVSDB:-/com/verf/${envir}/vsdb/grid2grid}
+export COMVSDB=${COMVSDB:-/gpfs/dell1/nco/ops/com/verf/${envir}/vsdb/grid2grid}
 
 mkdir -p -m 775 $COMOUT $COMVSDB/${RUN}
 
