@@ -114,10 +114,10 @@ cc     NAM has no one-hour accumu precip, so two files are needed
         write(*,*) 'open ', fname, ' ierr=',ierr
 
         call baopen(60,fnameout,ierr)
-         if(iret.ne.0) then
-          write(*,*) 'open ', fnameout, ' error', iret
-          stop
-          end if
+         !if(iret.ne.0) then
+         ! write(*,*) 'open ', fnameout, ' error', iret
+         ! stop
+         ! end if
 
 
         var=0.0
