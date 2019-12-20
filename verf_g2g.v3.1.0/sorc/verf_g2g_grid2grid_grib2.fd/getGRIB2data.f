@@ -26,6 +26,8 @@ c
       integer yy(mxfcst), mm(mxfcst), dd(mxfcst), hh(mxfcst), 
      +        ff(mxfcst),yyyy 
       CHARACTER*24 namvarbl(mxvrbl),model,obstype 
+      integer         idat(8), idat1(8)
+      real            rinc(5)
                                                                                                                                                     
       integer yyfcst(mxfcst),yyobsv(maxobs)
 
@@ -47,6 +49,12 @@ c
       real thr(mxvrbl,20)
 
       write(*,*)'In getGRIB2data:',grbunit,grib2file,ngrid
+
+c Find correct day for 00Z CCPA: retard by 3h:
+      rinc=0.
+      rinc(2)=-3.
+      idat=0      !On Dell undefined var is not set to 0 automatically
+      idat1=0     !On Dell undefined var is not set to 0 automatically
 
       call baopenr(grbunit, grib2file, ierr)
         write(*,*) 'open ', grib2file, ' ierr=',ierr
@@ -143,9 +151,27 @@ c        jpd9=ff(nfcst)     !Forecast time or accumulation beginning time
 
          if(jpd1.eq.1.and.jpd2.eq.8) then  ! APCP use Template 4.8, only verify 3hr accumulation
             jpdtn=8
-           if(grib2file(1:4).eq.'obsv') then
-            jpd9= 0         !Strange, Yin Lin's CCPA jpd9 is set to 0
-            hh(nfcst)=hh(nfcst)-3 
+           if(grib2file(1:14).eq.'obsv.grib.href') then
+            jpd9= 0         !Strange, Ying Lin's CCPA jpd9 is set to 0
+c
+c For valid time of 00Z, need to go fetch 3h CCPA files from $daym1.  Use
+c   w3movdat to find out what this date is.  We're modifying yy/mm/dd/hh, but 
+c   as long as this code is used for precip only, the modified yy/mm/dd/hh
+c   would not affect other things. 
+c
+            if (hh(nfcst).eq.0) then
+              idat(1)=yy(nfcst)+2000
+              idat(2)=mm(nfcst)
+              idat(3)=dd(nfcst)
+              idat(5)=hh(nfcst)
+              call w3movdat(rinc,idat,idat1)
+              yy(nfcst)=idat1(1)-2000
+              mm(nfcst)=idat1(2)
+              dd(nfcst)=idat1(3)
+              hh(nfcst)=idat1(5)
+            else
+              hh(nfcst)=hh(nfcst)-3 
+            endif
            else
             jpd9= ff(nfcst) -3             
            end if
@@ -292,7 +318,7 @@ c        jpd9=ff(nfcst)     !Forecast time or accumulation beginning time
             if(iret.ne.0) then
               data(nfcst,nvar,np,:) = - 1.0E9
               nodata(nfcst,nvar,np) = 1
-              write(*,*) ' read error=',iret,'for ', jpd1,jpd2
+              write(*,*) '   read error=',iret,'for ',jpd1,jpd2
             else
               data(nfcst,nvar,np,:)=gfld%fld(:)
             end if
