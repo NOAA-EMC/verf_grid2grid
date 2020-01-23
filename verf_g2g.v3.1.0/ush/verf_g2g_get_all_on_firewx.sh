@@ -7,9 +7,9 @@
 #############################################################################
 set -x
 
-export copygb2=${copygb2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb2}
-export wgrib2=${wgrib2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/wgrib2}
-export degrib2=${degrib2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/degrib2}
+export copygb2=${copygb2:-$COPYGB2}
+export wgrib2=${wgrib2:-$WGRIB2}
+export degrib2=${degrib2:-$DEGRIB2}
 
 modnam=$1
 RUN_DAY=$2
@@ -22,8 +22,8 @@ VALID_DIR=$COM_OUT  #/com/verf/dev or /com/verf/prod
 nam_firewx=$COMNAM.${RUN_DAY}/nam.t${RUN_CYC}z.firewxnest.hiresf12.tm00.grib2
 
 
-$wgrib2 -match ":TMP:2 m" $nam_firewx|$wgrib2 -i $nam_firewx -grib $DATA/t2m.t${RUN_CYC}z.firewxnest.f12
-$degrib2 $DATA/t2m.t${RUN_CYC}z.firewxnest.f12|grep "GRID TEMPLATE" > $DATA/griddef.${RUN_DAY}.${RUN_CYC}
+$WGRIB2 -match ":TMP:2 m" $nam_firewx|$WGRIB2 -i $nam_firewx -grib $DATA/t2m.t${RUN_CYC}z.firewxnest.f12
+$DEGRIB2 $DATA/t2m.t${RUN_CYC}z.firewxnest.f12|grep "GRID TEMPLATE" > $DATA/griddef.${RUN_DAY}.${RUN_CYC}
 read LINE < $DATA/griddef.${RUN_DAY}.${RUN_CYC}
 echo "LINE:"$LINE
 x=${LINE:21} 
@@ -40,7 +40,7 @@ if [ $modnam = mosaic ] ; then
     mkdir -p ${VALID_DIR}/firewx.${VALID_DAY}
     echo ${DAY}${RUN_CYC} $VALID $VALID_DAY $VALID_CYC
     mosaic=$COMMOSAIC.${VALID_DAY}/refd3d.t${VALID_CYC}z.grb2f00
-    $copygb2 -g"$firewxgrid" -i2,1 -x $mosaic $VALID_DIR/firewx.${VALID_DAY}/refd3d.t${VALID_CYC}z.firewx.${RUN_DAY}${RUN_CYC}.grib2
+    $COPYGB2 -g"$firewxgrid" -i2,1 -x $mosaic $VALID_DIR/firewx.${VALID_DAY}/refd3d.t${VALID_CYC}z.firewx.${RUN_DAY}${RUN_CYC}.grib2
     echo copygb2: $mosaic $VALID_DIR/firewx.${VALID_DAY}/refd3d.t${VALID_CYC}z.firewx.${RUN_DAY}${RUN_CYC}.grib2  done!
   done
  done
@@ -56,8 +56,8 @@ if [ $modnam = hrrr ] ; then
   hrrr_orig=${COMHRRR}.${RUN_DAY}
   for hh in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 ; do
     file=$hrrr_orig/conus/hrrr.t${RUN_CYC}z.wrfsfcf${hh}.grib2
-    $wgrib2 -match ":REF" $file|$wgrib2 -i $file -grib  $DATA/temp.${RUN_CYC}.${hh}
-    $copygb2 -g"$firewxgrid" -i2,1 -x $DATA/temp.${RUN_CYC}.${hh}  ${VALID_DIR}/firewx.${RUN_DAY}/hrrr.t${RUN_CYC}z.firewx.f${hh}.grib2
+    $WGRIB2 -match ":REF" $file|$WGRIB2 -i $file -grib  $DATA/temp.${RUN_CYC}.${hh}
+    $COPYGB2 -g"$firewxgrid" -i2,1 -x $DATA/temp.${RUN_CYC}.${hh}  ${VALID_DIR}/firewx.${RUN_DAY}/hrrr.t${RUN_CYC}z.firewx.f${hh}.grib2
     echo copygb2: $file ${VALID_DIR}/firewx.${RUN_DAY}/hrrr.t${RUN_CYC}z.firewx.f${hh}.grib2 done!
   done
   rm -f $DATA/temp.*
@@ -68,8 +68,8 @@ if [ $modnam = namnest ] ; then
  namnest_orig=${COMNAMNEST}.${RUN_DAY}
  for hh in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 18 24 30 36 42 48 ; do
    file=$namnest_orig/nam.t${RUN_CYC}z.conusnest.hiresf${hh}.tm00.grib2 
-   $wgrib2 -match ":REF" $file|$wgrib2 -i $file -grib  $DATA/temp.${RUN_CYC}.${hh}
-   $copygb2 -g"$firewxgrid" -i2,1 -x $DATA/temp.${RUN_CYC}.${hh}  ${VALID_DIR}/firewx.${RUN_DAY}/namnest.t${RUN_CYC}z.firewx.f${hh}.grib2
+   $WGRIB2 -match ":REF" $file|$WGRIB2 -i $file -grib  $DATA/temp.${RUN_CYC}.${hh}
+   $COPYGB2 -g"$firewxgrid" -i2,1 -x $DATA/temp.${RUN_CYC}.${hh}  ${VALID_DIR}/firewx.${RUN_DAY}/namnest.t${RUN_CYC}z.firewx.f${hh}.grib2
    echo copygb2: $file ${VALID_DIR}/firewx.${RUN_DAY}/namnest.t${RUN_CYC}z.firewx.f${hh}.grib2 done!
  done
    rm -f $DATA/temp.*
@@ -83,8 +83,8 @@ mkdir -p $hiresw
 cd $hiresw
 if [ $RUN_CYC = '00' ] || [ $RUN_CYC = '12' ] ; then
 for hh in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 18 24 30 36 ; do
-  $copygb2 -g"$firewxgrid" -x $hiresw_orig/hiresw.t${RUN_CYC}z.arw_5km.f${hh}.conus.grib2 $hiresw/hiresw.t${RUN_CYC}z.arw_5km.f${hh}.firewx.grib2
-  $copygb2 -g"$firewxgrid" -x $hiresw_orig/hiresw.t${RUN_CYC}z.nmmb_5km.f${hh}.conus.grib2 $hiresw/hiresw.t${RUN_CYC}z.nmmb_5km.f${hh}.firewx.grib2
+  $COPYGB2 -g"$firewxgrid" -x $hiresw_orig/hiresw.t${RUN_CYC}z.arw_5km.f${hh}.conus.grib2 $hiresw/hiresw.t${RUN_CYC}z.arw_5km.f${hh}.firewx.grib2
+  $COPYGB2 -g"$firewxgrid" -x $hiresw_orig/hiresw.t${RUN_CYC}z.nmmb_5km.f${hh}.conus.grib2 $hiresw/hiresw.t${RUN_CYC}z.nmmb_5km.f${hh}.firewx.grib2
 done
 fi
 

@@ -2,11 +2,11 @@
 
 set +x
 
-export copygb=${copygb2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb}
-export copygb2=${copygb2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb2}
-export cnvgrib=${cnvgrib:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/cnvgrib}
-export wgrib2=${wgrib2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/wgrib2}
-export wgrib=${wgrib:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/wgrib}
+export copygb=${copygb2:-$COPYGB}
+export copygb2=${copygb2:-$COPYGB2}
+export cnvgrib=${cnvgrib:-$CNVGRIB}
+export wgrib2=${wgrib2:-$WGRIB2}
+export wgrib=${wgrib:-$WGRIB}
 
 
 modnam=$1
@@ -30,7 +30,7 @@ if [ $modnam = mosaic ]; then
   cycles="00 03 06 09 12 15 18 21"
   for cyc in $cycles ; do
     mosaic=$COMMOSAIC.$vday/refd3d.t${cyc}z.grb2f00
-    $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $mosaic $COMOUT/refd3d.t${cyc}z.grid227.f00
+    $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $mosaic $COMOUT/refd3d.t${cyc}z.grid227.f00
     echo 'copygb2 mosaic ' $cyc ' done!'
   done
 fi
@@ -57,15 +57,15 @@ if [ $modnam = reference ] ; then
      hrrr=${COMHRRR}.${vday}/conus/hrrr.t${cyc}z.wrfsfcf${fhr}.grib2
      >$COMOUT/hrrr.t${cyc}z.grid184.f${fhr}.grib2
      >$COMOUT/hrrr.t${cyc}z.grid227.f${fhr}.grib2
-     $wgrib2 -match ":VIS:surface" $hrrr |$wgrib2 -i  $hrrr -grib  $DATA/vis
-     $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/vis $DATA/hrrr_vis
-     $wgrib2 -match ":TCDC:entire atmosphere" $hrrr |$wgrib2 -i  $hrrr -grib  $DATA/cloud
-     $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/cloud $DATA/hrrr_cloud
-     $wgrib2 -match ":TMP:2 m" $hrrr |$wgrib2 -i  $hrrr -grib  $DATA/t2m
-     $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/t2m $DATA/hrrr_t2m
+     $WGRIB2 -match ":VIS:surface" $hrrr |$WGRIB2 -i  $hrrr -grib  $DATA/vis
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/vis $DATA/hrrr_vis
+     $WGRIB2 -match ":TCDC:entire atmosphere" $hrrr |$WGRIB2 -i  $hrrr -grib  $DATA/cloud
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/cloud $DATA/hrrr_cloud
+     $WGRIB2 -match ":TMP:2 m" $hrrr |$WGRIB2 -i  $hrrr -grib  $DATA/t2m
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/t2m $DATA/hrrr_t2m
 
-     $wgrib2 -match ":DPT:2 m" $hrrr |$wgrib2 -i  $hrrr -grib  $DATA/dpt
-     $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/dpt $DATA/hrrr_dpt
+     $WGRIB2 -match ":DPT:2 m" $hrrr |$WGRIB2 -i  $hrrr -grib  $DATA/dpt
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/dpt $DATA/hrrr_dpt
 
 
      cat $DATA/hrrr_vis >>   $COMOUT/hrrr.t${cyc}z.grid184.f${fhr}.grib2
@@ -73,10 +73,10 @@ if [ $modnam = reference ] ; then
      cat $DATA/hrrr_t2m >>   $COMOUT/hrrr.t${cyc}z.grid184.f${fhr}.grib2
      cat $DATA/hrrr_dpt >>   $COMOUT/hrrr.t${cyc}z.grid184.f${fhr}.grib2
 
-     $wgrib2 -match ":REFC:entire atmosphere" $hrrr |$wgrib2 -i $hrrr -grib $DATA/ref
-     $wgrib2 -match ":RETOP" $hrrr |$wgrib2 -i $hrrr -grib $DATA/etp
-     $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/ref $DATE/hrrr_ref
-     $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/etp $DATE/hrrr_etp
+     $WGRIB2 -match ":REFC:entire atmosphere" $hrrr |$WGRIB2 -i $hrrr -grib $DATA/ref
+     $WGRIB2 -match ":RETOP" $hrrr |$WGRIB2 -i $hrrr -grib $DATA/etp
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/ref $DATE/hrrr_ref
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/etp $DATE/hrrr_etp
      cat $DATA/hrrr_ref >> $COMOUT/hrrr.t${cyc}z.grid227.f${fhr}.grib2
      cat $DATA/hrrr_etp >> $COMOUT/hrrr.t${cyc}z.grid227.f${fhr}.grib2
 
@@ -98,24 +98,24 @@ if [ $modnam = reference2 ] ; then
      namnest=$COMNAM.${vday}/nam.t${cyc}z.conusnest.hiresf${fhr}.tm00.grib2
      >$COMOUT/namnest.t${cyc}z.grid184.f${fhr}.grib2
      >$COMOUT/namnest.t${cyc}z.grid227.f${fhr}.grib2
-     $wgrib2 -match ":VIS:surface" $namnest |$wgrib2 -i  $namnest -grib  $DATA/vis
-     $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/vis $DATA/namnest_vis
-     $wgrib2 -match ":TCDC:entire atmosphere" $namnest |$wgrib2 -i  $namnest -grib  $DATA/cloud
-     $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/cloud $DATA/namnest_cloud
-     $wgrib2 -match ":TMP:2 m" $namnest |$wgrib2 -i  $namnest -grib  $DATA/t2m
-     $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/t2m $DATA/namnest_t2m
-     $wgrib2 -match ":DPT:2 m" $namnest |$wgrib2 -i  $namnest -grib  $DATA/dpt
-     $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/dpt $DATA/namnest_dpt
-     $wgrib2 -match ":APCP:surface" $namnest |$wgrib2 -i  $namnest -grib  $DATA/apcp
-     $copygb2 -g"20 6 0 0 0 0 0 0 1121 881 23117000 240977000 8 60000000 255000000 4763000 4763000 0 64" -i2,1 -x $DATA/apcp $COMOUT/namnest.t${cyc}z.apcp.f${fhr}.grib2
+     $WGRIB2 -match ":VIS:surface" $namnest |$WGRIB2 -i  $namnest -grib  $DATA/vis
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/vis $DATA/namnest_vis
+     $WGRIB2 -match ":TCDC:entire atmosphere" $namnest |$WGRIB2 -i  $namnest -grib  $DATA/cloud
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/cloud $DATA/namnest_cloud
+     $WGRIB2 -match ":TMP:2 m" $namnest |$WGRIB2 -i  $namnest -grib  $DATA/t2m
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/t2m $DATA/namnest_t2m
+     $WGRIB2 -match ":DPT:2 m" $namnest |$WGRIB2 -i  $namnest -grib  $DATA/dpt
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/dpt $DATA/namnest_dpt
+     $WGRIB2 -match ":APCP:surface" $namnest |$WGRIB2 -i  $namnest -grib  $DATA/apcp
+     $COPYGB2 -g"20 6 0 0 0 0 0 0 1121 881 23117000 240977000 8 60000000 255000000 4763000 4763000 0 64" -i2,1 -x $DATA/apcp $COMOUT/namnest.t${cyc}z.apcp.f${fhr}.grib2
      cat $DATA/namnest_vis >>   $COMOUT/namnest.t${cyc}z.grid184.f${fhr}.grib2
      cat $DATA/namnest_cloud >> $COMOUT/namnest.t${cyc}z.grid184.f${fhr}.grib2
      cat $DATA/namnest_t2m >>   $COMOUT/namnest.t${cyc}z.grid184.f${fhr}.grib2
      cat $DATA/namnest_dpt >>   $COMOUT/namnest.t${cyc}z.grid184.f${fhr}.grib2
-     $wgrib2 -match ":REFC:entire atmosphere" $namnest |$wgrib2 -i $namnest -grib $DATA/ref 
-     $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/ref $DATA/namnest_ref 
-     $wgrib2 -match "RETOP" $namnest |$wgrib2 -i $namnest -grib $DATA/etp
-     $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/etp $DATA/namnest_etp
+     $WGRIB2 -match ":REFC:entire atmosphere" $namnest |$WGRIB2 -i $namnest -grib $DATA/ref 
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/ref $DATA/namnest_ref 
+     $WGRIB2 -match "RETOP" $namnest |$WGRIB2 -i $namnest -grib $DATA/etp
+     $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/etp $DATA/namnest_etp
      cat $DATA/namnest_ref >> $COMOUT/namnest.t${cyc}z.grid227.f${fhr}.grib2
      cat $DATA/namnest_etp >> $COMOUT/namnest.t${cyc}z.grid227.f${fhr}.grib2     
 
@@ -141,31 +141,31 @@ if [ $modnam = href ] ; then
 #        href=$COMHREF/${fhr}/href.m${mbr}.t${cycle}z.f${fhr}
         href=${COMHREF}.${vday}/verf_g2g/href.m${mbr}.t${cycle}z.conus.f${fhr}
 
-        $wgrib2 -match ":APCP:surface" $href |$wgrib2 -i $href -grib $DATA/apcp
-        $copygb2 -g"20 6 0 0 0 0 0 0 1121 881 23117000 240977000 8 60000000 255000000 4763000 4763000 0 64" -i2,1 -x $DATA/apcp $DATA/href.ens${mbr}.t${cycle}z.apcp.f${fhr}
+        $WGRIB2 -match ":APCP:surface" $href |$WGRIB2 -i $href -grib $DATA/apcp
+        $COPYGB2 -g"20 6 0 0 0 0 0 0 1121 881 23117000 240977000 8 60000000 255000000 4763000 4763000 0 64" -i2,1 -x $DATA/apcp $DATA/href.ens${mbr}.t${cycle}z.apcp.f${fhr}
 
         #HREFv2 grid resolution has been changed
         
-        $wgrib2 -match ":REFC:entire atmosphere" $href |$wgrib2 -i $href -grib $DATA/refc
-        $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/refc $DATA/href.ens${mbr}.t${cycle}z.grid227.f${fhr}
+        $WGRIB2 -match ":REFC:entire atmosphere" $href |$WGRIB2 -i $href -grib $DATA/refc
+        $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/refc $DATA/href.ens${mbr}.t${cycle}z.grid227.f${fhr}
 
-        $wgrib2 -match ":RETOP" $href |$wgrib2 -i $href -grib $DATA/etop
-        $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/etop $DATA/etop.grid227
+        $WGRIB2 -match ":RETOP" $href |$WGRIB2 -i $href -grib $DATA/etop
+        $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/etop $DATA/etop.grid227
         cat $DATA/etop.grid227 >> $DATA/href.ens${mbr}.t${cycle}z.grid227.f${fhr}
 
-        $wgrib2 -match ":VIS:surface" $href |$wgrib2 -i  $href -grib  $DATA/urma
-        $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/urma $DATA/href.ens${mbr}.t${cycle}z.grid184.f${fhr}
+        $WGRIB2 -match ":VIS:surface" $href |$WGRIB2 -i  $href -grib  $DATA/urma
+        $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/urma $DATA/href.ens${mbr}.t${cycle}z.grid184.f${fhr}
 
-        $wgrib2 -match ":TCDC:entire atmosphere" $href |$wgrib2 -i  $href -grib  $DATA/urma
-        $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/urma urma.grid184 
+        $WGRIB2 -match ":TCDC:entire atmosphere" $href |$WGRIB2 -i  $href -grib  $DATA/urma
+        $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/urma urma.grid184 
         cat $DATA/urma.grid184 >> $DATA/href.ens${mbr}.t${cycle}z.grid184.f${fhr}
     
-        $wgrib2 -match ":TMP:2 m" $href |$wgrib2 -i  $href -grib  $DATA/urma
-        $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/urma urma.grid184
+        $WGRIB2 -match ":TMP:2 m" $href |$WGRIB2 -i  $href -grib  $DATA/urma
+        $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/urma urma.grid184
         cat $DATA/urma.grid184 >> $DATA/href.ens${mbr}.t${cycle}z.grid184.f${fhr}
 
-        $wgrib2 -match ":DPT:2 m" $href |$wgrib2 -i  $href -grib  $DATA/urma
-        $copygb2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/urma urma.grid184
+        $WGRIB2 -match ":DPT:2 m" $href |$WGRIB2 -i  $href -grib  $DATA/urma
+        $COPYGB2 -g"30 6 0 0 0 0 0 0 2145 1377 20191999 238445999 8 25000000 265000000 2539703 2539703 0 64 25000000 25000000 -90000000 0" -i2,1 -x  $DATA/urma urma.grid184
         cat $DATA/urma.grid184 >> $DATA/href.ens${mbr}.t${cycle}z.grid184.f${fhr}
         rm -f $DATA/urma $DATA/urma.grid184
 

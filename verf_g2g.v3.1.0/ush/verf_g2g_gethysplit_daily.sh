@@ -29,10 +29,10 @@ else
 fi
 
 
-export WGRIB2=/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/wgrib2
-export COPYGB=${COPYGB:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb}
+# JY export WGRIB2=$WGRIB2
+# JY export COPYGB=${COPYGB:-$COPYGB}
 
-export COMHYSPT=${COMHYSPT:-/gpfs/${dir}p2/nco/ops/com/hysplit/prod}
+export COMHYSPT=${COMHYSPT:-/gpfs/dell1/nco/ops/com/hysplit/prod}
 
 export gribfile_conus_smoke=smokecs.t06z.pbl.1hr.grib2
 export gribfile_ak_smoke=smokeak.t06z.pbl.1hr_198.grib2

@@ -15,8 +15,8 @@ set -x
 export nest=$1
 export vday=$2
 
-export COPYGB=${COPYGB:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb}
-export cnvgrib=${cnvgrib:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/cnvgrib}
+# JY export COPYGB=${COPYGB:-$COPYGB}
+export cnvgrib=${cnvgrib:-$CNVGRIB}
 
 export DCOM=${DCOM:-/gpfs/dell1/nco/ops/dcom/prod}
 
@@ -56,7 +56,7 @@ t=$tbeg
 while [ $t -le ${tend} ] ; do
 
  file=$OUTDIR/${ftype}.${varvn}.$vday.hr${t}.grib
- $cnvgrib -g12 $file $OUTDIR/${ftype}.t${t}z.f00
+ $CNVGRIB -g12 $file $OUTDIR/${ftype}.t${t}z.f00
  t=`expr $t + 1`
 
 done

@@ -13,9 +13,9 @@ export vday=${vday:-$PDYm2}    #for ensemble, use past-2 day as validation day
 export vdate=${vdate:-$vday$cyc}
 
 
-export copygb2=${copygb2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb2}
-export cnvgrib=${cnvgrib:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/cnvgrib}
-export wgrib2=${wgrib2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/wgrib2}
+export copygb2=${copygb2:-$COPYGB2}
+export cnvgrib=${cnvgrib:-$CNVGRIB}
+export wgrib2=${wgrib2:-$WGRIB2}
 
 #############################################################
 #1:Get gfs analysis grib2 data in GRID#3 (1-degree global)
@@ -55,7 +55,7 @@ if [ $modnam = gfsclim ] ; then
     
       for cyc in 00 06 12 18 ; do
         clim1d_grib2=$FIXGFSCLIM/${head}.1979${mm}${dd}
-        $wgrib2 -match "1979$mm$dd$cyc" $clim1d_grib2|$wgrib2 -i $clim1d_grib2 -grib $COMOUT/clim.grid3.${ens}.${mm}${dd}${cyc}.grib2
+        $WGRIB2 -match "1979$mm$dd$cyc" $clim1d_grib2|$WGRIB2 -i $clim1d_grib2 -grib $COMOUT/clim.grid3.${ens}.${mm}${dd}${cyc}.grib2
       done
     done
 fi
@@ -75,7 +75,7 @@ if [ $modnam = ndas ]; then
    ln -sf $COMNDAS.$vday/nam.t12z.awip3d00.tm03.grib2 $COMOUT/ndas.t09z.awip3d00.f00.grib2
    ln -sf $COMNDAS.$vday/nam.t18z.awip3d00.tm03.grib2 $COMOUT/ndas.t15z.awip3d00.f00.grib2
    for cyc in 03 09 15 21 ; do
-        $copygb2 -g"30 6 0 0 0 0 0 0 185 129 12190000 226541000 8 25000000 265000000 40635000 40635000 0 64 25000000 25000000 0 0" -x $COMOUT/ndas.t${cyc}z.awip3d00.f00.grib2 $COMOUT/ndas.t${cyc}z.grd212.f00.grib2
+        $COPYGB2 -g"30 6 0 0 0 0 0 0 185 129 12190000 226541000 8 25000000 265000000 40635000 40635000 0 64 25000000 25000000 0 0" -x $COMOUT/ndas.t${cyc}z.awip3d00.f00.grib2 $COMOUT/ndas.t${cyc}z.grd212.f00.grib2
    done
 
 fi
@@ -104,8 +104,8 @@ if [ $modnam = srefclim ] ; then
       #clim_grib2=$FIXGFSCLIM/${head}.1979${mm}${dd}.grid212.grib2
       clim_grib2=$FIXGFSCLIM/${head}.1979${mm}${dd}
       for cyc in 03 09 15 21 ; do
-        $copygb2 -g"30 6 0 0 0 0 0 0 185 129 12190000 226541000 8 25000000 265000000 40635000 40635000 0 64 25000000 25000000 0 0" -x $clim_grib2 $COMOUT/clim.grid212.${ens}.${mm}${dd}${cyc}.grib2
-        #$wgrib2 -match "1979$mm$dd$cyc" $clim_grib2|$wgrib2 -i $clim_grib2 -grib $COMOUT/clim.grid212.${ens}.${mm}${dd}${cyc}.grib2
+        $COPYGB2 -g"30 6 0 0 0 0 0 0 185 129 12190000 226541000 8 25000000 265000000 40635000 40635000 0 64 25000000 25000000 0 0" -x $clim_grib2 $COMOUT/clim.grid212.${ens}.${mm}${dd}${cyc}.grib2
+        #$WGRIB2 -match "1979$mm$dd$cyc" $clim_grib2|$WGRIB2 -i $clim_grib2 -grib $COMOUT/clim.grid212.${ens}.${mm}${dd}${cyc}.grib2
       done
     done
 
@@ -222,21 +222,21 @@ if [ $modnam = naefs ] ; then
              >$DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}
              for var in  TMP UGRD VGRD HGT ; do
                for p in 500 700 850 ; do
-                $wgrib2  $naefs|grep "${var}:${p} mb"|$wgrib2 -i $naefs -grib $DATA/output.${cyc}.f${hh}
+                $WGRIB2  $naefs|grep "${var}:${p} mb"|$WGRIB2 -i $naefs -grib $DATA/output.${cyc}.f${hh}
                 cat $DATA/output.${cyc}.f${hh} >> $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}
                done
              done
 
-             $wgrib2 $naefs|grep "TMP:2 m"|$wgrib2 -i $naefs -grib $DATA/output.${cyc}.f${hh}
+             $WGRIB2 $naefs|grep "TMP:2 m"|$WGRIB2 -i $naefs -grib $DATA/output.${cyc}.f${hh}
              cat $DATA/output.${cyc}.f${hh} >> $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}
 
-             $wgrib2 $naefs|grep "UGRD:10 m above ground"|$wgrib2 -i $naefs -grib $DATA/output.${cyc}.f${hh}
+             $WGRIB2 $naefs|grep "UGRD:10 m above ground"|$WGRIB2 -i $naefs -grib $DATA/output.${cyc}.f${hh}
              cat $DATA/output.${cyc}.f${hh} >> $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}
-             $wgrib2 $naefs|grep "VGRD:10 m above ground"|$wgrib2 -i $naefs -grib $DATA/output.${cyc}.f${hh}
+             $WGRIB2 $naefs|grep "VGRD:10 m above ground"|$WGRIB2 -i $naefs -grib $DATA/output.${cyc}.f${hh}
              cat $DATA/output.${cyc}.f${hh} >> $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}
            fi
 
-           $copygb2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}  $outdata/naefs.cmc${mb}.t${cyc}z.grd3.f${hh}
+           $COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}  $outdata/naefs.cmc${mb}.t${cyc}z.grd3.f${hh}
            rm -f $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}
 
            nfhrs=`expr $nfhrs + 24`
@@ -410,21 +410,21 @@ if [ $modnam = cmce ] ; then
              >$DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh}
              for var in  TMP UGRD VGRD HGT ; do
                for p in 500 700 850 ; do
-                $wgrib2  $cmce|grep "${var}:${p} mb"|$wgrib2 -i $cmce -grib $DATA/output.${cyc}.f${hh}
+                $WGRIB2  $cmce|grep "${var}:${p} mb"|$WGRIB2 -i $cmce -grib $DATA/output.${cyc}.f${hh}
                 cat $DATA/output.${cyc}.f${hh} >> $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh}
                done
              done
 
-             $wgrib2 $cmce|grep "TMP:2 m"|$wgrib2 -i $cmce -grib $DATA/output.${cyc}.f${hh}
+             $WGRIB2 $cmce|grep "TMP:2 m"|$WGRIB2 -i $cmce -grib $DATA/output.${cyc}.f${hh}
              cat $DATA/output.${cyc}.f${hh} >> $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh}
 
-             $wgrib2 $cmce|grep "UGRD:10 m above ground"|$wgrib2 -i $cmce -grib $DATA/output.${cyc}.f${hh}
+             $WGRIB2 $cmce|grep "UGRD:10 m above ground"|$WGRIB2 -i $cmce -grib $DATA/output.${cyc}.f${hh}
              cat $DATA/output.${cyc}.f${hh} >> $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh}
-             $wgrib2 $cmce|grep "VGRD:10 m above ground"|$wgrib2 -i $cmce -grib $DATA/output.${cyc}.f${hh}
+             $WGRIB2 $cmce|grep "VGRD:10 m above ground"|$WGRIB2 -i $cmce -grib $DATA/output.${cyc}.f${hh}
              cat $DATA/output.${cyc}.f${hh} >> $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh}
            fi
 
-           $copygb2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh} $outdata/cmce.ens${mb}.t${cyc}z.grd3.f${hh}
+           $COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh} $outdata/cmce.ens${mb}.t${cyc}z.grd3.f${hh}
            rm -f $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh} 
 
            nfhrs=`expr $nfhrs + 24`

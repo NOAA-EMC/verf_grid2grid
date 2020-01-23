@@ -2,9 +2,9 @@
 ##                                                Jun.Du@noaa.gov
 ##                                               NOAA/NWS/NCEP/EMC
 ##  Change Log
-##  10/31/2019: Binbin Zhou, initial setting
-##     This version is copy form Jun Du's SREF v7.0.0 on Dell
-## VERF_g2g v3.1.0
+##  04/16/2015: Jun Du, initial setting
+##
+## SREF v7.0.0
 ## Check available modules: module avail
 ## Check path names: module load xxx
 ##                   env > output
@@ -16,7 +16,7 @@ puts stderr "for the Intel Compiler Suite $version\n"
 }
 module-whatis " SREF whatis description"
 
-set ver v3.1.0
+set ver v7.0.0
 
 set sys [uname sysname]
 set VERF /gpfs/dell1/nco/ops/nwprod/modulefiles/VERF

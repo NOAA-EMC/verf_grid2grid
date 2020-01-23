@@ -15,7 +15,7 @@ nest=$1
 yyyymmdd=$2
 
 grid='255  0 801 534 0 -175000 128 80000 -55000 150 150 64 0 0 0 0 0'
-export COPYGB=${COPYGB:-/nwprod/util/exec/copygb}
+# JY export COPYGB=${COPYGB:-/nwprod/util/exec/copygb}
 
 fst_beg=1
 fst_end=48

@@ -33,9 +33,7 @@ fi
 
 
 
-export COPYGB=${COPYGB:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb}
-export COMHYSPT=${COMHYSPT:-/gpfs/${dir}p2/nco/ops/com/hysplit/prod}
-export WGRIB2=/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/wgrib2
+export COMHYSPT=${COMHYSPT:-/gpfs/dell1/nco/ops/com/hysplit/prod}
 
 export gribfile_conus_dust=dustcs.t06z.pbl.1hr.grib2
 

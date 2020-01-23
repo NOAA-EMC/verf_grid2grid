@@ -13,10 +13,10 @@ modnam=$1
 export vday=${vday:-$PDYm1}
 export vdate=${vdate:-$vday$cyc}
 
-export copygb=${copygb:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb}
-export copygb2=${copygb2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb2}
-export cnvgrib=${cnvgrib:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/cnvgrib}
-export wgrib2=${wgrib2:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/wgrib2}
+export copygb=${copygb:-$COPYGB}
+export copygb2=${copygb2:-$COPYGB2}
+export cnvgrib=${cnvgrib:-$CNVGRIB}
+export wgrib2=${wgrib2:-$WGRIB2}
 
 
 
@@ -30,7 +30,7 @@ if [ $modnam = mosaic ]; then
   for cyc in $cycles
   do
     mosaic=$COMMOSAIC.$vday/refd3d.t${cyc}z.grb2f00
-    $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $mosaic $COMOUT/refd3d.t${cyc}z.grid227.f00
+    $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $mosaic $COMOUT/refd3d.t${cyc}z.grid227.f00
     echo 'copygb2 mosaic ' $cyc ' done!'
   done
 fi
@@ -46,10 +46,10 @@ if [ $modnam = nam ]; then
     for fhr in 06 12 18 24 30 36 42 48 54 60 66 72 78 84
     do
       nam=$COMNAM.$vday/nam.t${cyc}z.awphys${fhr}.tm00.grib2
-      $wgrib2 -match ":REFC:entire atmosphere" $nam |$wgrib2 -i $nam -grib $DATA/temp.${cyc}.${fhr}
-      $wgrib2 -match ":REFD:1000 m" $nam       |$wgrib2 -i $nam -grib $DATA/ref1k.${cyc}.${fhr}
+      $WGRIB2 -match ":REFC:entire atmosphere" $nam |$WGRIB2 -i $nam -grib $DATA/temp.${cyc}.${fhr}
+      $WGRIB2 -match ":REFD:1000 m" $nam       |$WGRIB2 -i $nam -grib $DATA/ref1k.${cyc}.${fhr}
       cat $DATA/ref1k.${cyc}.${fhr} >> $DATA/temp.${cyc}.${fhr} 
-      $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/temp.${cyc}.${fhr} $COMOUT/nam.t${cyc}z.grid227.f${fhr}
+      $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/temp.${cyc}.${fhr} $COMOUT/nam.t${cyc}z.grid227.f${fhr}
       echo 'copygb2 nam ' $cyc $fhr ' done!'
     done
   done
@@ -73,10 +73,10 @@ if [ $modnam = rap ]; then
     for fhr in 06 12 18
     do 
       rap1=$COMRAP.$vday/rap.t${cyc}z.awp130pgrbf${fhr}.grib2
-      $wgrib2 -match ":REFC:entire atmosphere" $rap1|$wgrib2 -i $rap1 -grib $DATA/temp.${cyc}.${fhr}
-      $wgrib2 -match ":REFD:1000 m" $rap1      |$wgrib2 -i $rap1 -grib $DATA/ref1k.${cyc}.${fhr}
+      $WGRIB2 -match ":REFC:entire atmosphere" $rap1|$WGRIB2 -i $rap1 -grib $DATA/temp.${cyc}.${fhr}
+      $WGRIB2 -match ":REFD:1000 m" $rap1      |$WGRIB2 -i $rap1 -grib $DATA/ref1k.${cyc}.${fhr}
       cat $DATA/ref1k.${cyc}.${fhr} >> $DATA/temp.${cyc}.${fhr}
-      $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/temp.${cyc}.${fhr} $COMOUT/rap.t${cyc}z.grid227.f${fhr}
+      $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/temp.${cyc}.${fhr} $COMOUT/rap.t${cyc}z.grid227.f${fhr}
       echo 'copygb2 rap ' $cyc $fhr ' done!'
     done
   done
@@ -92,10 +92,10 @@ if [ $modnam = hrrr ]; then
     for fhr in 06 12 18
     do
       file_grib2=$COMHRRR.$vday/conus/hrrr.t${cyc}z.wrfsfcf${fhr}.grib2
-      $wgrib2 -match ":REFC:entire atmosphere" $file_grib2 |$wgrib2 -i $file_grib2 -grib $DATA/temp.${cyc}.${fhr}
-      $wgrib2 -match ":REFD:1000 m"       $file_grib2 |$wgrib2 -i $file_grib2 -grib $DATA/ref1k.${cyc}.${fhr}
+      $WGRIB2 -match ":REFC:entire atmosphere" $file_grib2 |$WGRIB2 -i $file_grib2 -grib $DATA/temp.${cyc}.${fhr}
+      $WGRIB2 -match ":REFD:1000 m"       $file_grib2 |$WGRIB2 -i $file_grib2 -grib $DATA/ref1k.${cyc}.${fhr}
       cat $DATA/ref1k.${cyc}.${fhr} >> $DATA/temp.${cyc}.${fhr}
-      $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/temp.${cyc}.${fhr} $COMOUT/hrrr.t${cyc}z.grid227.f${fhr}
+      $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x  $DATA/temp.${cyc}.${fhr} $COMOUT/hrrr.t${cyc}z.grid227.f${fhr}
       echo 'copygb2 hrrr ' $cyc $fhr ' done!'
     done
   done
@@ -115,8 +115,8 @@ if [ $modnam = srefnmm ]; then
     for fhr in 06 12 18 24 30 36 42 48 54 60 66 72 78 84
     do
       srefmdl=$COMSREF.$vday/$cyc/pgrb/sref_${mdl}.t${cyc}z.pgrb216.ctl.f${fhr}.grib2
-      $wgrib2 -match ":REFC:entire atmosphere" $srefmdl |$wgrib2 -i $srefmdl -grib $DATA/temp.${cyc}.${fhr}
-      $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/temp.${cyc}.${fhr} $COMOUT/${modnam}.t${cyc}z.grid227.f${fhr}
+      $WGRIB2 -match ":REFC:entire atmosphere" $srefmdl |$WGRIB2 -i $srefmdl -grib $DATA/temp.${cyc}.${fhr}
+      $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/temp.${cyc}.${fhr} $COMOUT/${modnam}.t${cyc}z.grid227.f${fhr}
       echo 'copygb2 srefnmm ' $cyc $fhr ' done!'
     done
   done
@@ -135,8 +135,8 @@ if [ $modnam = srefarw ]; then
     for fhr in 06 12 18 24 30 36 42 48 54 60 66 72 78 84
     do
       srefmdl=$COMSREF.$vday/$cyc/pgrb/sref_${mdl}.t${cyc}z.pgrb216.ctl.f${fhr}.grib2
-      $wgrib2 -match ":REFC:entire atmosphere" $srefmdl|$wgrib2 -i $srefmdl -grib $DATA/temp.${cyc}.${fhr}
-      $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/temp.${cyc}.${fhr} $COMOUT/${modnam}.t${cyc}z.grid227.f${fhr}
+      $WGRIB2 -match ":REFC:entire atmosphere" $srefmdl|$WGRIB2 -i $srefmdl -grib $DATA/temp.${cyc}.${fhr}
+      $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/temp.${cyc}.${fhr} $COMOUT/${modnam}.t${cyc}z.grid227.f${fhr}
       echo 'copygb2 srefarw ' $cyc $fhr ' done!'
     done
   done
@@ -155,8 +155,8 @@ if [ $modnam = srefnmmb ]; then
     for fhr in 06 12 18 24 30 36 42 48 54 60 66 72 78 84
     do
       srefmdl=$COMSREF.$vday/$cyc/pgrb/sref_${mdl}.t${cyc}z.pgrb216.ctl.f${fhr}.grib2
-      $wgrib2 -match ":REFC:entire atmosphere" $srefmdl|$wgrib2 -i $srefmdl -grib $DATA/temp.${cyc}.${fhr}
-      $copygb2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/temp.${cyc}.${fhr} $COMOUT/${modnam}.t${cyc}z.grid227.f${fhr}
+      $WGRIB2 -match ":REFC:entire atmosphere" $srefmdl|$WGRIB2 -i $srefmdl -grib $DATA/temp.${cyc}.${fhr}
+      $COPYGB2 -g"30 6 0 0 0 0 0 0 1473 1025 12190000 226541000 8 25000000 265000000 5079000 5079000 0 64 25000000 25000000 0 0" -i2,1 -x $DATA/temp.${cyc}.${fhr} $COMOUT/${modnam}.t${cyc}z.grid227.f${fhr}
       echo 'copygb2 srefarw ' $cyc $fhr ' done!'
     done
   done

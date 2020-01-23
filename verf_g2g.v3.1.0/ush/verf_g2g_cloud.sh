@@ -28,7 +28,7 @@ if [ $domain = 'CONUS' ] ; then
 vgrid=212
 
 case $model in 
-  nam)      export fcstdir=${COMNAM:-/com2/nam/prod/nam}
+  nam)      export fcstdir=${COMNAM:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
             export fhead=nam
             export fgrbtype=awip3d
             export ftm=.tm00.grib2
@@ -150,10 +150,11 @@ done
 else  # for Alaska domain grid#242:
 vgrid=242
  case $model in
-  nam)      export fcstdir=${COMNAM:-/com22/nam/prod/nam}
+  nam)      export fcstdir=${COMNAM:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
             export fhead=nam
             export fgrbtype=awak3d
-            export ftm=.grb2.tm00
+            # JY export ftm=.grb2.tm00
+            export ftm=.tm00.grib2
             export mdl=NAM
             ;;
   gfs)      export fcstdir=$FCSTDIR
@@ -162,7 +163,7 @@ vgrid=242
             export ftm=.grib2
             export mdl=GFS
             ;;
-  rap)      export fcstdir=/com2/rap/prod/rap
+  rap)      export fcstdir=${COMRAP:-/gpfs/hps/nco/ops/com/rap/prod/rap}
             export fhead=rap
             export fgrbtype=awp242f
             export ftm=.grib2

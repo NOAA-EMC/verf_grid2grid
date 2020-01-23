@@ -43,7 +43,7 @@ do
 
      if [ $nest = ak -o $nest = hi ]; then
        echo "Get next day's NESIS and HYPSLIT data"
-        pday=`/nwprod/util/ush/finddate.sh $vday d+1`
+        pday=`finddate.sh $vday d+1`
         $USHverf_g2g/verf_g2g_getnesdis_daily.sh $nest $pday
         $USHverf_g2g/verf_g2g_gethysplit_daily.sh $nest $pday
 

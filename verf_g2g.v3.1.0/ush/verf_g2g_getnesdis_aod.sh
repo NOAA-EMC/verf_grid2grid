@@ -18,7 +18,7 @@ nend=${nend:-23}
 cbeg=${cbeg:-1}
 cend=${cend:-48}
 
-COMNESDIS=${COMNESDIS:-/dcom/us007003/$vday/wgrdbul/smoke}
+COMNESDIS=${COMNESDIS:-$DCOMROOT/prod/$vday/wgrdbul/smoke}
 COMCMAQ=${COMCMAQ:-/com2/aqm/prod/aqm.$vday}
 
 case $data_type in

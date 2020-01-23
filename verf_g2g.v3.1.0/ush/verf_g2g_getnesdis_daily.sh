@@ -13,8 +13,8 @@ set -x
 export nest=$1
 export vday=$2
 
-export COPYGB=${COPYGB:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/copygb}
-export cnvgrib=${cnvgrib:-/gpfs/dell1/nco/ops/nwprod/grib_util.v1.1.0/exec/cnvgrib}
+# JY export COPYGB=${COPYGB:-$COPYGB}
+export cnvgrib=${cnvgrib:-$CNVGRIB}
 
 export DCOM=${DCOM:-/gpfs/dell1/nco/ops/dcom/prod}
 
@@ -64,9 +64,9 @@ do
     file=$OUTDIR/${ftype}.$vday${t}.2smoke.combaod.hmshysplitcomb2.NAM3.grd
     if [ $nest = ak -o $nest = hi ] ; then 
       $COPYGB -g${vgrid} -i2,1 -x $file $OUTDIR/${ftype}-grib${vgrid}.t${t}z.f00
-      $cnvgrib -g12 $OUTDIR/${ftype}-grib${vgrid}.t${t}z.f00 $OUTDIR/${ftype}.t${t}z.f00
+      $CNVGRIB -g12 $OUTDIR/${ftype}-grib${vgrid}.t${t}z.f00 $OUTDIR/${ftype}.t${t}z.f00
     else
-      $cnvgrib -g12 $file $OUTDIR/${ftype}.t${t}z.f00
+      $CNVGRIB -g12 $file $OUTDIR/${ftype}.t${t}z.f00
     fi
   fi
 
@@ -108,7 +108,7 @@ then
       $COPYGB -g${vgrid} -i2,1 -x $file   $OUTDIR_P/${ftype}-grib${vgrid}.t${t}z.f00
       if [ $SENDCOM = YES ]; then
        #cp ${ftype}*t${t}z.f00 $OUTDIR_P/.
-       $cnvgrib -g12 $OUTDIR_P/${ftype}-grib${vgrid}.t${t}z.f00  $OUTDIR_P/${ftype}.t${t}z.f00
+       $CNVGRIB -g12 $OUTDIR_P/${ftype}-grib${vgrid}.t${t}z.f00  $OUTDIR_P/${ftype}.t${t}z.f00
       fi
       t=$( printf "%02d" `expr $t + 1` )
     done

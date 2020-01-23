@@ -7,7 +7,7 @@ set -xa
 #         Please note that variable "RUN_ENVIR" is set and used
 #         in the development enviroment only.
 #################################################################
-export RUN_ENVIR=${RUN_ENVIR:-prod}
+export RUN_ENVIR=${RUN_ENVIR:-nco}
 export SENDECF=${SENDECF:-YES}
 
 ###############################
@@ -20,14 +20,12 @@ export RUN=reflt
 # This block can be modified for different Production test
 # environment. This is used for operational testings
 ###############################################################
-if [ "$RUN_ENVIR" = prod -o "$RUN_ENVIR" = para ] ; then
+if [ "$RUN_ENVIR" = nco ] ; then
   if [ $envir != "prod" ] ; then
     export SENDDBN=${SENDDBN:-NO}
-    export jlogfile=${jlogfile:-/gpfs/dell1/nco/ops/com/logs/${envir}/jlogfile}
-    export DBNROOT=/gpfs/dell1/nco/ops/nwprod/spa_util/fakedbn
     export DBNLOG=${DBNLOG:-YES}
-    export DATA_IN=${DATA_IN:-/gpfs/dell1/nco/ops/tmpnwprd2}
-    export COMSREF=${COMSREF:-/gpfs/dell2/nco/ops/com/sref/$envir/sref}
+    export DATA_IN=${DATA_IN:-$DATAROOT}
+    export COMSREF=${COMSREF:-$(compath.py sref/prod)/sref}
   fi
 fi
 
@@ -37,7 +35,7 @@ verf_g2g_ver=${verf_g2g_ver:-v3.1.0}
 # This block is for Developer's test run:
 # Run config file to get input parameters
 # This config file should define the following variables
-# DATA_IN: Location of working directory, default to /tmpnwprd
+# DATA_IN: Location of working directory, default to $DATAROOT
 # SENDECF: If the job is to be running using ECF, default to YES
 # SENDDBN: Set to NO for developers, default to YES
 # COM_IN:  Directory for input files, default to /com/$NET/${envir}
@@ -64,7 +62,7 @@ date
 # obtain unique process id (pid) and make temp directories
 ###########################################################
 export pid=$$
-export DATA_IN=${DATA_IN:-/gpfs/dell1/nco/ops/tmpnwprd1}
+export DATA_IN=${DATA_IN:-$DATAROOT}
 export DATA=$DATA_IN/verf_g2g_reflt_${cyc}_${envir}.$$
 
 rm -rf $DATA
@@ -74,7 +72,7 @@ cd $DATA
 ####################################
 # File To Log Msgs
 ####################################
-export jlogfile=${jlogfile:-/gpfs/dell1/nco/ops/com/logs/jlogfiles/jlogfile.$$}
+export jlogfile=${jlogfile:-${DATA}/jlogfile}
 
 ####################################
 # Determine Job Output Name on System
@@ -95,7 +93,7 @@ export SENDCOM=${SENDCOM:-YES}
 export SENDDBN=${SENDDBN:-YES}
 export SENDECF=${SENDECF:-YES}
 
-export HOMEverf_g2g=${HOMEverf_g2g:-/nw${envir}/verf_g2g.${verf_g2g_ver}}
+export HOMEverf_g2g=${HOMEverf_g2g:-${NWROOT}/verf_g2g.${verf_g2g_ver}}
 export EXECverf_g2g=${EXECverf_g2g:-$HOMEverf_g2g/exec}
 export FIXverf_g2g=${FIXverf_g2g:-$HOMEverf_g2g/fix}
 export PARMverf_g2g=${PARMverf_g2g:-$HOMEverf_g2g/parm}
@@ -107,10 +105,10 @@ export USHverf_g2g=${USHverf_g2g:-$HOMEverf_g2g/ush}
 export utilscript=/gpfs/dell1/nco/ops/nwprod/prod_util.v1.1.0/ush
 
 # Run setup to initialize working directory and utility scripts
-#sh $utilscript/setup.sh
+## JY sh $utilscript/setup.sh
 
 # Run setpdy and initialize PDY variables
-sh $utilscript/setpdy.sh
+setpdy.sh
 . $DATA/PDY
 
 export vday=$PDYm1
@@ -125,34 +123,34 @@ elif [  "${host:0:1}" = v ] ; then
  dir=g
 fi
 
-  export COMRAP=${COMRAP:-/gpfs/hps/nco/ops/com/rap/prod/rap}
-  export COMSREF=${COMSREF:-/gpfs/dell2/nco/ops/com/sref/prod/sref}
-  export COMNAMNEST=${COMNAMNEST:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
-  export COMHIRESW=${COMHIRESW:-/gpfs/hps/nco/ops/com/hiresw/prod/hiresw}
-  export COMNAMFIREWX=${COMNAMFIREWX:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
-  export COMNAM=${COMNAM:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
-  export COMMOSAIC=${COMMOSAIC:-/gpfs/${dir}p1/nco/ops/com/hourly/prod/radar}
-  export COMBUFR=${COMBUFR:-/com/hourly/prod}
-  export COMGFS=${COMGFS:-/gpfs/dell1/nco/ops/com/gfs/prod/gfs}
-  export COMHRRR=${COMHRRR:-/gpfs/hps/nco/ops/com/hrrr/prod/hrrr}
-  export COMGEFS=${COMGEFS:-/gpfs/dell2/nco/ops/com/gens/prod/gefs}
-  export COMNDAS=${COMNDAS:-/gpfs/dell1/nco/ops/com/nam/prod/nam}
-  export COMNAEFS=${COMNAEFS:-/gpfs/hps/nco/ops/com/naefs/prod/cmce}
-  export AFWADIR=${AFWADIR:-/dcom/us007003}
-  export CLAVRDIR=${CLAVRDIR:-/gpfs/dell1/nco/ops/dcom/prod}
+  export COMRAP=${COMRAP:-$(compath.py rap/prod)/rap}
+  export COMSREF=${COMSREF:-$(compath.py sref/prod)/sref}
+  export COMNAMNEST=${COMNAMNEST:-$(compath.py nam/prod)/nam}
+  export COMHIRESW=${COMHIRESW:-$(compath.py hiresw/prod)/hiresw}
+  export COMNAMFIREWX=${COMNAMFIREWX:-$(compath.py nam/prod)/nam}
+  export COMNAM=${COMNAM:-$(compath.py nam/prod)/nam}
+  export COMMOSAIC=${COMMOSAIC:-$(compath.py hourly/prod/radar)}
+  export COMBUFR=${COMBUFR:-$(compath.py hourly/prod)}
+  export COMGFS=${COMGFS:-$(compath.py gfs/prod)/gfs}
+  export COMHRRR=${COMHRRR:-$(compath.py hrrr/prod)/hrrr}
+  export COMGEFS=${COMGEFS:-$(compath.py gens/prod)/gefs}
+  export COMNDAS=${COMNDAS:-$(compath.py nam/prod)/nam}
+  export COMNAEFS=${COMNAEFS:-$(compath.py naefs/prod)/cmce}
+  export AFWADIR=${AFWADIR:-$DCOMROOT/prod}
+  export CLAVRDIR=${CLAVRDIR:-$DCOMROOT/prod}
 
 ##################################
 # Define COMIN/COMOUT variables
 ##################################
-export COM_IN=${COM_IN:-/gpfs/dell1/nco/ops/com/verf/${envir}}
-export COM_OUT=${COM_OUT:-/gpfs/dell1/nco/ops/com/verf/${envir}}
+export COM_IN=${COM_IN:-$COMROOT/verf/${envir}}
+export COM_OUT=${COM_OUT:-$COMROOT/verf/${envir}}
 
 export FCSTDIR=${FCSTDIR:-$COM_OUT/${RUN}}
 export OBSVDIR=${OBSVDIR:-$COM_OUT/${RUN}}
 
 export COMIN=$COM_IN/${RUN}.$vday
 export COMOUT=$COM_OUT/${RUN}.$vday
-export COMVSDB=${COMVSDB:-/gpfs/dell1/nco/ops/com/verf/${envir}/vsdb/grid2grid}
+export COMVSDB=${COMVSDB:-$COMROOT/verf/${envir}/vsdb/grid2grid}
 
 mkdir -p -m 775 $COMOUT $COMVSDB/${RUN}
 
@@ -165,10 +163,10 @@ sh $HOMEverf_g2g/scripts/exverf_g2g_reflt.sh.ecf $vday
 msg="JOB $job HAS COMPLETED NORMALLY."
 postmsg "$jlogfile" "$msg"
 
-#cd $DATA_IN
-#if [ ${RM_TMPDIR:-NO} = YES ]; then
-#  rm -rf $DATA
-#fi
+if [ "$KEEPDATA" != "YES" ] ; then
+  cd $DATAROOT
+  rm -rf $DATA
+fi
 
 date
 
