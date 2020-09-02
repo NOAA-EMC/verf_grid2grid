@@ -189,7 +189,8 @@ if [ $modnam = gefs ] ; then
              cat $DATA/vp >> $DATA/gep${mb}.t${cyc}z.0p5.f${hh}
            done
            
-           $COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/gep${mb}.t${cyc}z.0p5.f${hh} $outdata/gefs.ens${mb}.t${cyc}z.grd3.f${hh}
+           #$COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/gep${mb}.t${cyc}z.0p5.f${hh} $outdata/gefs.ens${mb}.t${cyc}z.grd3.f${hh}
+            $COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 -1 90000000 0 48 -90000000 359000000 1000000 1000000 0" -x $DATA/gep${mb}.t${cyc}z.0p5.f${hh} $outdata/gefs.ens${mb}.t${cyc}z.grd3.f${hh}
            
             nfhrs=`expr $nfhrs + 12`
          done
@@ -277,7 +278,8 @@ if [ $modnam = naefs ] ; then
              cat $DATA/output.${cyc}.f${hh} >> $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}
            fi
 
-           $COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}  $outdata/naefs.cmc${mb}.t${cyc}z.grd3.f${hh}
+           #$COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}  $outdata/naefs.cmc${mb}.t${cyc}z.grd3.f${hh}
+            $COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 -1 90000000 0 48 -90000000 359000000 1000000 1000000 0" -x $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}  $outdata/naefs.cmc${mb}.t${cyc}z.grd3.f${hh}
            rm -f $DATA/naefs.cmc${mb}.t${cyc}z.grd5.f${hh}
 
            nfhrs=`expr $nfhrs + 12`
@@ -465,7 +467,8 @@ if [ $modnam = cmce ] ; then
              cat $DATA/output.${cyc}.f${hh} >> $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh}
            fi
 
-           $COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh} $outdata/cmce.ens${mb}.t${cyc}z.grd3.f${hh}
+           #$COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 0 -90000000 0 48 90000000 359000000 1000000 1000000 64" -x $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh} $outdata/cmce.ens${mb}.t${cyc}z.grd3.f${hh}
+           $COPYGB2 -g"0 6 0 0 0 0 0 0 360 181 0 -1 90000000 0 48 -90000000 359000000 1000000 1000000 0" -x $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh} $outdata/cmce.ens${mb}.t${cyc}z.grd3.f${hh}
            rm -f $DATA/cmce.ens${mb}.t${cyc}z.grd5.f${hh} 
 
            nfhrs=`expr $nfhrs + 24`
