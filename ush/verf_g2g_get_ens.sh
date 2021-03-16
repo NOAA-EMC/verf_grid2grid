@@ -28,7 +28,8 @@ if [ $modnam = gfsanl ]; then
 
   for cyc in 00 12 ; do
 
-    cat $COMGFSANL.$vday/${cyc}/gfs.t${cyc}z.pgrb2.1p00.f000 $COMGFSANL.$vday/${cyc}/gfs.t${cyc}z.pgrb2b.1p00.f000 >gfsanl
+    #cat $COMGFSANL.$vday/${cyc}/gfs.t${cyc}z.pgrb2.1p00.f000 $COMGFSANL.$vday/${cyc}/gfs.t${cyc}z.pgrb2b.1p00.f000 >gfsanl
+    cat $COMGFSANL.$vday/${cyc}/atmos/gfs.t${cyc}z.pgrb2.1p00.f000 $COMGFSANL.$vday/${cyc}/gfs.t${cyc}z.pgrb2b.1p00.f000 >gfsanl
     cp gfsanl $COMOUT/gfsanl.t${cyc}z.grd3.f00.grib2
 
   done
