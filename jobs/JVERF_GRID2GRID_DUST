@@ -1,0 +1,136 @@
+#!/bin/sh
+#######################################################
+# This job processes the GRID2GRID cloud verification
+#######################################################
+set -ax
+export RUN_ENVIR=${RUN_ENVIR:-nco}
+
+###############################
+# Specify RUN name
+###############################
+export NET=verf
+export RUN=dust
+
+###############################################################
+# This block can be modified for different Production test
+# environment. This is used for operational testings
+###############################################################
+if [ "$RUN_ENVIR" = nco ]; then
+  if [ $envir != "prod" ] ; then
+    export SENDDBN=${SENDDBN:-NO}
+    export DBNLOG=${DBNLOG:-YES}
+    export DATA_IN=${DATA_IN:-$DATAROOT}
+  fi
+fi
+
+#verf_g2g_ver=${verf_g2g_ver:-v3.2.0}
+
+#####################################################################################
+# This block is for Developer's test run:
+# Run config file to get input parameters
+# This config file should define the following variables
+# DATA_IN: Location of working directory, default to $DATAROOT
+# SENDECF: If the job is to be running using ecflow, default to YES
+# SENDDBN: Set to NO for developers, default to YES
+# COM_IN:  Directory for input files, default to /com/$NET/${envir}
+# COM_OUT: Directory for output file, default to /com/$NET/${envir}
+# gespath: Directory for the guess or restart files, default to /nwges/${envir}
+#####################################################################################
+if [ "$RUN_ENVIR" = dev ]    ### For Developers
+then
+  . $HOME/parm/verf_g2g_prod_config
+fi
+
+
+export COMHYSPT=${COMHYSPT:-$(compath.py $envir/com/hysplit/${hysptli_ver})/hysplit}
+
+#######################################################
+set -xa
+
+# ###################################
+# SET SHELL PROCESSING VARIABLES
+# ###################################
+export PS4='$SECONDS + ' 
+date
+
+###########################################################
+# obtain unique process id (pid) and make temp directories
+###########################################################
+export pid=$$
+export DATA_IN=${DATA_IN:-$DATAROOT}
+export DATA=$DATA_IN/verf_g2g_dust_${cyc}_${envir}
+
+rm -rf $DATA
+mkdir -p $DATA
+cd $DATA 
+####################################
+# File To Log Msgs
+####################################
+export jlogfile=${jlogfile:-${DATA}/jlogfile}
+
+####################################
+# Determine Job Output Name on System
+####################################
+export outid="LL$job"
+export jobid="${outid}.o${pid}"
+export pgmout="OUTPUT.${pid}"
+
+export cycle=t${cyc}z 
+
+##################################################
+# SAVEGES  - Copy Files From TMPDIR to $GESdir
+# SENDECF  - Flag Events on ecflow
+# SENDCOM  - Copy Files From TMPDIR to $COMOUT
+# SENDDBN  - Issue DBNet Client Calls
+##################################################
+export SENDCOM=${SENDCOM:-YES}
+export SENDDBN=${SENDDBN:-YES}
+export SENDECF=${SENDECF:-YES}
+
+####################################
+# Specify codes and scripts locaton
+####################################
+export HOMEverf_g2g=${HOMEverf_g2g:-${NWROOT}/verf_g2g.${verf_g2g_ver}}
+export EXECverf_g2g=${EXECverf_g2g:-$HOMEverf_g2g/exec}
+export FIXverf_g2g=${FIXverf_g2g:-$HOMEverf_g2g/fix}
+export PARMverf_g2g=${PARMverf_g2g:-$HOMEverf_g2g/parm}
+export USHverf_g2g=${USHverf_g2g:-$HOMEverf_g2g/ush}
+
+
+# Run setpdy and initialize PDY variables
+setpdy.sh
+ . $DATA/PDY
+
+export vday=${vday:-$PDYm2}
+
+##vday=`echo $PDYm2 | cut -c1-8`
+##vday=20130503
+
+##################################
+# Define COMIN/COMOUT variables
+##################################
+export COM_IN=${COM_IN:-$COMROOT/verf/${envir}}
+export COM_OUT=${COM_OUT:-$COMROOT/verf/${envir}}
+
+export COMIN=$COM_IN/dust.$vday
+export COMOUT=$COM_OUT/dust.$vday
+export COMVSDB=${COMVSDB:-$COMROOT/verf/${envir}/vsdb/grid2grid}
+
+mkdir -p -m 775 $COMOUT $COMVSDB/${RUN}
+
+env
+
+#######################################################################
+# Execute the script.
+sh $HOMEverf_g2g/scripts/exverf_g2g_dust.sh.ecf $vday
+
+msg="JOB $job HAS COMPLETED NORMALLY."
+postmsg "$jlogfile" "$msg"
+
+if [ "$KEEPDATA" != "YES" ] ; then
+  cd $DATAROOT
+  rm -rf $DATA
+fi
+
+date
+

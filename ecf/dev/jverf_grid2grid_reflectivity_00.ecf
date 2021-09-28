@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#PBS -N jverf_g2g_reflt
+#PBS -o  /lfs/h2/emc/ptmp/Binbin.Zhou/verf_g2g/tmpnwprd/verf_g2g_reflt_output
+#PBS -e  /lfs/h2/emc/ptmp/Binbin.Zhou/verf_g2g/tmpnwprd/verf_g2g_reflt_output
+#PBS -q dev
+#PBS -l select=1:ncpus=2
+#PBS -l walltime=02:30:00
+#PBS -A VERF-DEV
+##PBS -v HOME=/lfs/h2/emc/vpppg/noscrub/Binbin.Zhou/grid2grid
+##PBS -v verf_g2g_ver=v3.2.0
+
+export verf_g2g_ver=v3.2.0
+export HOME=/lfs/h2/emc/vpppg/noscrub/Binbin.Zhou/grid2grid/verf_g2g.${verf_g2g_ver}
+
+source $HOME/versions/run.ver
+
+module purge
+source $HOME/modulefiles/v3.2.0
+module list
+
+export envir=dev
+export RUN_ENVIR=dev
+export cyc=00
+export KEEPDATA=YES
+
+export PDY=20210824
+$HOME/jobs/JVERF_GRID2GRID_REFLT
+

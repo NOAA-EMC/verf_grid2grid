@@ -1,0 +1,62 @@
+##################################################################
+# This parameter file set up the environment variables used in
+# the J-Job scripts to run the grid2grid verifications
+##################################################################
+#!/bin/bash
+
+dcom_canned=/lfs/h1/ops/canned/dcom
+com_canned=/lfs/h1/ops/canned/com
+
+export COMPATH=${com_canned}/rap:${com_canned}/sref:${com_canned}/hiresw:${com_canned}/nam:${com_canned}/hourly:${com_canned}/urma:${com_canned}/gfs:${com_canned}/hrrr:${com_canned}/gefs:${com_canned}/naefs:${com_canned}/glmp:${com_canned}/href:${com_canned}/ccpa:${com_canned}/narre:${com_canned}/hysplit:${com_canned}
+
+export naefs_ver=${naefs_ver:-v6.0.6}
+export COMRAP=${COMRAP:-${com_canned}/rap/v5.1/rap}
+export COMSREF=${COMSREF:-${com_canned}/sref/v7.1/sref}
+export COMHIRESW=${COMHIRESW:-${com_canned}/hiresw/v8.1/hiresw}
+export COMNAM=${COMNAM:-${com_canned}/nam/v4.2/nam}
+export COMNAMNEST=$COMNAM
+export COMNAMFIREWX=$COMNAM
+export COMMOSAIC=${COMMOSAIC:-${com_canned}/hourly/v0.0/radar}
+export COMURMA=${COMURMA:-${com_canned}/urma/v2.9/urma2p5}
+export COMGFS=${COMGFS:-${com_canned}/gfs/v16.2/gfs}
+export COMHRRR=${COMHRRR:-${com_canned}/hrrr/v4.1/hrrr}
+export COMGFSANL=$COMGFS
+export COMGEFS=${COMGEFS:-${com_canned}/gefs/v12.2/gefs}
+export COMNDAS=$COMNAM
+export COMNAEFS=${COMNAEFS:-${com_canned}/naefs/v6.1/cmce}
+export COMGLMP=${COMGLMP:-${com_canned}/glmp/v2.4/glmp}
+export COMHREF=${COMHREF:-${com_canned}/href/v3.1/href} 
+export DCOM=${DCOM:-/lfs/h1/ops/canned/dcom}
+export CLAVRDIR=${CLAVRDIR:-$DCOM}
+export COMFNMOC=${COMFNMOC:-$DCOM}
+export COMCCPA=${COMCCPA:-${com_canned}/ccpa/v4.2/ccpa}
+export COMNARRE=${COMNARRE:-${com_canned}/narre/v1.2/narre}
+#export FIXGFSCLIM=${FIXGFSCLIM:-/gpfs/hps/nco/ops/nwprod/naefs.${naefs_ver}/fix}
+export COMCMCE=$COMNAEFS
+export COMHYSPT=${COMHYSPT:-${com_canned}/hysplit/v7.9}
+
+
+#export HOMEverf_g2g=/lfs/h2/emc/vpppg/noscrub/Binbin.Zhou/grid2grid/verf_g2g.v3.2.0
+export HOMEverf_g2g=/lfs/h2/emc/vpppg/noscrub/Binbin.Zhou/grid2grid/verf_g2g.${verf_g2g_ver}
+export EXECverf_g2g=$HOMEverf_g2g/exec
+export PARMverf_g2g=$HOMEverf_g2g/parm
+export USHverf_g2g=$HOMEverf_g2g/ush
+export FIXverf_g2g=$HOMEverf_g2g/fix
+export SCRIPTerf_g2g=$HOMEverf_g2g/scripts
+
+export FIXGFSCLIM=$FIXverf_g2g 
+/lfs/h2/emc/ptmp/Binbin.Zhou
+export COM_IN=${COM_IN:-/lfs/h2/emc/ptmp/$LOGNAME/verf_g2g/com/verf/dev}
+export COM_OUT=${COM_OUT:-/lfs/h2/emc/ptmp/$LOGNAME/verf_g2g/com/verf/dev}
+export COMVSDB=${COMVSDB:-/lfs/h2/emc/ptmp/$LOGNAME/verf_g2g/com/verf/dev/vsdb/grid2grid}
+#export DATA_IN=${DATA_IN:-/lfs/h2/emc/ptmp/$LOGNAME/verf_g2g/tmpnwprd}
+export DATA_IN=/lfs/h2/emc/ptmp/Binbin.Zhou/verf_g2g/tmpnwprd
+
+export COMROOT=/lfs/h1/nco/ops/com
+
+export jlogfile=$DATA_IN/jlogfile
+
+export SENDCOM=${SENDCOM:-YES}
+export SENDECF=${SENDECF:-NO}
+export SENDDBN=${SENDDBN:-NO}
+

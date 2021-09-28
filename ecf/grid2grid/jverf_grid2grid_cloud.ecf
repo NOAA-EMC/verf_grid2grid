@@ -1,0 +1,57 @@
+#BSUB -J %E%verf_grid2grid_cloud
+#BSUB -o %COM%/output/%ENVIR%/today/verf_grid2grid_cloud_%CYC%.o%J
+#BSUB -L /bin/sh
+#BSUB -q %QUEUE%_shared
+#BSUB -P %PROJ%-%PROJENVIR%
+#BSUB -n 1
+#BSUB -R span[ptile=1]
+#BSUB -R rusage[mem=2000] -R affinity[core]
+#BSUB -cwd /tmp
+#BSUB -W 01:00
+##BSUB MP_TASK_AFFINITY=cpu:1
+
+%include <head.h>
+%include <envir-p3.h>
+
+export model=verf_g2g
+%include <model_ver.h>
+
+############################################################
+# Load modules
+############################################################
+module load lsf/$lsf_ver
+module load ips/$ips_ver
+module load impi/$impi_ver
+module load grib_util/$grib_util_ver
+
+module list
+
+
+export MP_SHARED_MEMORY=yes
+export MEMORY_AFFINITY=MCM
+set -x
+export cyc=%CYC%
+export cycles="%CYCLES%"
+export NET=verf
+export RUN=cloud
+
+${HOMEverf_g2g}/jobs/JVERF_GRID2GRID_CLOUD
+if [ $? -ne 0 ]; then
+   ecflow_client --msg="***JOB ${ECF_NAME} ERROR RUNNING J-SCRIPT ***"
+   ecflow_client --abort
+   exit
+fi
+
+%include <tail.h>
+%manual
+#################################################################################
+#TASKSCRIPT DOCUMENTATION BLOCK
+#
+#PURPOSE:  To execute the job that creates the ncepdate on IBMSP
+#######################################################################
+#######################################################################
+## Job specific troubleshooting instructions:
+#  see generic troubleshoot manual page
+#
+######################################################################
+%end

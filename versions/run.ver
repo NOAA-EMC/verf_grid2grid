@@ -1,0 +1,41 @@
+#!/bin/bash
+export verf_g2g_ver=v3.2.0
+
+export envvar_ver=1.0
+export PrgEnv_intel_ver=8.1.0
+export intel_ver=19.1.3.304
+export craype_ver=2.7.8
+export grib_util_ver=1.2.2
+export prod_util_ver=2.0.5
+export prod_envir_ver=2.0.4
+export libjpeg_ver=9c
+export wgrib2_ver=2.0.8
+export libpng_ver=1.6.37
+export w3nco_ver=2.4.1
+export w3emc_ver=2.7.3
+export bacio_ver=2.4.1
+export g2_ver=3.4.4
+export zlib_ver=1.2.11
+export jasper_ver=2.0.16
+export sigio_ver=2.3.2
+export sp_ver=2.3.3
+export ip_ver=3.3.3
+export netcdf_ver=4.7.4
+
+
+
+export rap_ver=v5.1
+export sref_ver=v7.1
+export nam_ver=v4.2
+export gfs_ver=v16.2
+export hrrr_ver=v4.1
+export hiresw_ver=v8.1
+export naefs_ver=v6.1
+export mosaic_ver=v0.0
+export gefs_ver=v12.2
+export urma_ver=v2.9
+export hysplit_ver=v7.9
+export narre_ver=v1.2
+export glmp_ver=v2.4
+export href_ver=v3.1
+export ccpa_ver=v4.2

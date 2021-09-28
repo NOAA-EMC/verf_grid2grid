@@ -1,0 +1,59 @@
+#%Module#########################################################
+##                                                Jun.Du@noaa.gov
+##                                               NOAA/NWS/NCEP/EMC
+##  Change Log
+##  04/16/2015: Jun Du, initial setting
+##
+## SREF v7.0.0
+## Check available modules: module avail
+## Check path names: module load xxx
+##                   env > output
+##___________________________________________________
+proc ModulesHelp { } {
+puts stderr "Set environment veriables for SREF"
+puts stderr "This module initializes the environment "
+puts stderr "for the Intel Compiler Suite $version\n"
+}
+module-whatis " VERF_G2G whatis description"
+
+set ver v3.1.0
+
+set sys [uname sysname]
+set VERF_G2G /gpfs/dell1/nco/ops/nwpara/verf_g2g.v3.1.4/modulefiles/VERF
+set lname VERF_G2G
+
+setenv COMP ifort
+setenv COMP_MP mpifort
+setenv COMP_MPI mpiifort
+
+setenv C_COMP icc
+setenv C_COMP_MP mpcc
+
+# Loading Intel Compiler Suite
+module load ips/18.0.1.163
+
+module load impi/18.0.1
+
+module load grib_util/1.1.0
+
+# Loading nceplibs modules
+#setenv WRFPATH /gpfs/dell1/nco/ops/nwtest/wrf_shared.v1.1.0
+#setenv WRFPATH /gpfs/dell1/nco/ops/nwprod/lib/wrf_shared.v1.1.1
+#setenv WRFPATH /gpfs/dell2/emc/modeling/noscrub/George.Gayno/sref2dell/wrf_shared.v1.1.0
+#setenv WRFPATH /gpfs/dell2/emc/modeling/noscrub/Jun.Du/sref.v7_dell/wrf_shared.v1.1.0
+
+# Third Party Compiled Libraries and Tools
+#module load NetCDF/4.5.0
+module load jasper/1.900.1
+module load zlib/1.2.11
+module load libpng/1.2.59
+#module load xmlparse/2.0.0
+
+# NCO Production Compiled Libraries and Tools
+module load w3nco/2.0.6
+module load bacio/2.0.2
+module load ip/3.0.1
+module load sp/2.0.2
+module load g2/3.1.0
+module load w3emc/2.3.0
+ 

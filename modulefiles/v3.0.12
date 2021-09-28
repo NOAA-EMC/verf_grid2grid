@@ -1,0 +1,67 @@
+#%Module#########################################################
+##                                           Binbin.Zhou@noaa.gov
+##                                             NOAA/NWS/NCEP/EMC
+##  Change Log
+##  01/21/2016: Binbin Zhou, initial setting
+##                                           
+## VERF g2g v7.0.0
+## Check available modules: module avail
+## Check path names: module load xxx
+##                   env > output
+##___________________________________________________
+proc ModulesHelp { } {
+puts stderr "Set environment veriables for VERF"
+puts stderr "This module initializes the environment "
+puts stderr "for the Intel Compiler Suite $version\n"
+}
+module-whatis " VERF whatis description"
+
+set ver v3.0.12
+
+set sys [uname sysname]
+set VERF /nwpara2/modulefiles/VERF
+set lname VERF
+
+setenv COMP ifort
+setenv COMP_MP mpfort
+setenv COMP_MPI mpiifort
+
+setenv C_COMP icc
+setenv C_COMP_MP mpcc
+
+# Known conflicts ???
+conflict NetCDF/4.2/serial
+conflict crtm/2.1.3
+
+# Loading Intel Compiler Suite
+module load ics/12.1
+
+### is ibmpe needed?  Seems needed for ARW, but kills NMMB build 
+module load ibmpe
+
+# JY module load grib_util
+
+# Loading nceplibs modules
+ setenv WRFPATH /nwprod/sorc/wrf_shared.v1.1.0
+ module load NetCDF/3.6.3
+ module load w3nco/v2.0.6
+ module load w3emc/v2.0.5
+ module load bacio/v2.0.1
+ module load ip/v2.0.0
+ module load sp/v2.0.2
+ module load nemsio/v2.2.1
+ module load sigio/v2.0.1
+ module load sfcio/v1.0.0
+ module load gfsio/v1.1.0
+ module load jasper/v1.900.1
+ module load z/v1.2.6
+ module load png/v1.2.44
+ module load g2/v2.5.0
+ module load g2tmpl/v1.3.0
+ module load landsfcutil/v2.0.0
+ module load crtm/v2.0.6
+ module load xmlparse/v2.0.0
+ module load bufr/v10.2.5
+ module load transutil/v1.0.0
+ module load ESMF/630rp1
+ 
