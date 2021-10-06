@@ -111,6 +111,7 @@ export vday=${vday:-$PDYm1}
 # Define model input COMIN
 ##################################
 
+  export COMNAM=${COMNAM:-$(compath.py $envir/nam/${nam_ver})/nam}
   export COMHREF=${COMHREF:-$(compath.py $envir/href/${href_ver})/href}
   export COMMOSAIC=${COMMOSAIC:-$(compath.py $envir/hourly/${mosaic_ver})/radar}
   export COMURMA=${COMURMA:-$(compath.py $envir/urma/${urma_ver})/urma2p5}

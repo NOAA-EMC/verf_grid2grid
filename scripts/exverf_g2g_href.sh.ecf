@@ -18,11 +18,11 @@ export vday=$1
   
   cp $PARMverf_g2g/verf_g2g_href.vars vars
 
-#  $USHverf_g2g/verf_g2g_get_href.sh ccpa
-#  $USHverf_g2g/verf_g2g_get_href.sh reference2
-#  $USHverf_g2g/verf_g2g_get_href.sh urma
-#  $USHverf_g2g/verf_g2g_get_href.sh mosaic
-#  $USHverf_g2g/verf_g2g_get_href.sh href
+  $USHverf_g2g/verf_g2g_get_href.sh ccpa
+  $USHverf_g2g/verf_g2g_get_href.sh reference2
+  $USHverf_g2g/verf_g2g_get_href.sh urma
+  $USHverf_g2g/verf_g2g_get_href.sh mosaic
+  $USHverf_g2g/verf_g2g_get_href.sh href
 
  
 cat vars |while read line

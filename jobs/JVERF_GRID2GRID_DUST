@@ -42,7 +42,7 @@ then
 fi
 
 
-export COMHYSPT=${COMHYSPT:-$(compath.py $envir/com/hysplit/${hysptli_ver})/hysplit}
+export COMHYSPT=${COMHYSPT:-$(compath.py $envir/com/hysplit/${hysptli_ver})}
 
 #######################################################
 set -xa
